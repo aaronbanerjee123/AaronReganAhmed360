@@ -3,15 +3,12 @@
 include __DIR__ . '/../core/init.php';
 
 if(session_status() == PHP_SESSION_ACTIVE){
-if($_SESSION['USER']){
-  $user_image = $_SESSION['USER']['image'];
+  if($_SESSION['USER']){
+    $user_image = $_SESSION['USER']['image'];
 
 
+    }
   }
-
-}else{
-  redirect_login();
-}
 ?>
 
 
