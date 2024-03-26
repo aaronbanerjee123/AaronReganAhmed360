@@ -66,9 +66,8 @@ include __DIR__ . '/../core/init.php';
       $data = [];
       $data['username'] = $_POST['username'];
       $data['email'] = $_POST['email'];
-      $data['role'] = 'user';
+      $data['role'] = $_POST['role'];
       $data['password'] = password_hash($_POST['password'],PASSWORD_DEFAULT);
-
      
       $query = "insert into users (username,email,password,role) values (:username,:email,:password,:role)";// full colons means provided later
     
@@ -234,6 +233,15 @@ include __DIR__ . '/../core/init.php';
       <input value="<?php echo old_value('retype_password')?>"  name="retype_password" type="password" class="form-control" id="floatingPassword" placeholder="Retype Password">
       <label for="floatingPassword">Retype Password</label>
     </div>
+
+    <div class="form-floating mb-2">
+            <select name="role" class="form-select">
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+            <label for="form-select">Role</label>
+          </div>
+
 
     <div class="my-2">
       Already have an account? <a href="<?=ROOT?>pages/login.php">Login here</a>
