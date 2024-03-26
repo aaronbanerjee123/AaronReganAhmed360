@@ -2,66 +2,71 @@
 
 session_start();
 
+
 include __DIR__ . '/../core/init.php';
-
-
-if($_SESSION['USER']){
-  $user_image = $_SESSION['USER']['image'];
-
-
+if(session_status() == PHP_SESSION_ACTIVE){
+    if($_SESSION['USER']){
+        $user_image = $_SESSION['USER']['image'];
+      
+      
+      }
+      
+          if(!$_SESSION['USER']){
+              redirect_login();
+          }
+          
+          $query = "select * from categories";
+          $rows = query($query, []);
+          $user_image = $_SESSION['USER']['image'];
+      
+          if(!empty($_POST)) {
+              $errors = [];
+          
+              if(empty($_POST['title'])) {
+                  $errors['title'] = "A title is required";
+              }
+            
+              if(empty($_POST['content'])) {
+                  $errors['content'] = 'Content required';
+              }
+          
+              $allowed = ['image/jpeg', 'image/png', 'image/webp'];
+              if(!empty($_FILES['image']['name'])) {
+                  $destination = "";
+                  if(!in_array($_FILES['image']['type'], $allowed)) {
+                      $errors['image'] = "Image format not supported";
+                  } else {
+                      $folder =   "uploads/";
+                      if(!file_exists($folder)) {
+                          mkdir($folder, 0777, true);
+                      }
+                      $destination = $folder . $_FILES['image']['name'];
+                      move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+                  }
+              } else {
+                  $errors['image'] = 'Post needs an image';
+              }
+        
+              $slug = str_to_url($_POST['title']);
+        
+              if(empty($errors)) {
+                  $data = [];
+                  $data['title'] = $_POST['title'];
+                  $data['content'] = $_POST['content'];
+                  $data['slug'] = str_to_url($_POST['title']);
+                  $data['category_id'] = $_POST['category_id'];
+                  $data['user_id'] = user('id');
+                  $data['image'] = $destination;
+                  $query = "insert into posts (title, content, category_id, slug, user_id, image) values (:title, :content, :category_id, :slug, :user_id, :image)";
+                  query($query, $data);
+                  redirect_home();
+              }
+          }
+}else{
+    redirect_login();
 }
 
-    if(!$_SESSION['USER']){
-        redirect_login();
-    }
-    
-    $query = "select * from categories";
-    $rows = query($query, []);
-    $user_image = $_SESSION['USER']['image'];
 
-    if(!empty($_POST)) {
-        $errors = [];
-    
-        if(empty($_POST['title'])) {
-            $errors['title'] = "A title is required";
-        }
-      
-        if(empty($_POST['content'])) {
-            $errors['content'] = 'Content required';
-        }
-    
-        $allowed = ['image/jpeg', 'image/png', 'image/webp'];
-        if(!empty($_FILES['image']['name'])) {
-            $destination = "";
-            if(!in_array($_FILES['image']['type'], $allowed)) {
-                $errors['image'] = "Image format not supported";
-            } else {
-                $folder =   "uploads/";
-                if(!file_exists($folder)) {
-                    mkdir($folder, 0777, true);
-                }
-                $destination = $folder . $_FILES['image']['name'];
-                move_uploaded_file($_FILES['image']['tmp_name'], $destination);
-            }
-        } else {
-            $errors['image'] = 'Post needs an image';
-        }
-  
-        $slug = str_to_url($_POST['title']);
-  
-        if(empty($errors)) {
-            $data = [];
-            $data['title'] = $_POST['title'];
-            $data['content'] = $_POST['content'];
-            $data['slug'] = str_to_url($_POST['title']);
-            $data['category_id'] = $_POST['category_id'];
-            $data['user_id'] = user('id');
-            $data['image'] = $destination;
-            $query = "insert into posts (title, content, category_id, slug, user_id, image) values (:title, :content, :category_id, :slug, :user_id, :image)";
-            query($query, $data);
-            redirect_home();
-        }
-    }
 ?>
 
 <!DOCTYPE html>
