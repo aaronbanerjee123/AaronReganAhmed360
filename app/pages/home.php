@@ -1,13 +1,12 @@
 <?php
-session_start();
 include __DIR__ . '/../core/init.php';
 
-
-if($_SESSION['USER']){
-  $user_image = $_SESSION['USER']['image'];
-
-
+if(session_status() == PHP_SESSION_ACTIVE){
+  if($_SESSION['USER']){
+    $user_image = $_SESSION['USER']['image'];
+  }
 }
+
 ?>
 
 
