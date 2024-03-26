@@ -300,25 +300,24 @@ if(!function_exists('create_tables')){
         $stm = $con->prepare($query); 
         $stm->execute();
 
-        $query = "insert into categories (category,disabled,slug) values (fitness, 0, fitness)";// full colons means provided later
-        $stm = $con -> prepare($query);
+        $query = "insert into categories (category, disabled, slug) values ('fitness', 0, 'fitness')";
+        $stm = $con->prepare($query);
         $stm->execute();
-
-        $query = "insert into categories (category,disabled,slug) values (food, 0, food)";// full colons means provided later
-        $stm = $con -> prepare($query);
+        
+        $query = "insert into categories (category, disabled, slug) values ('food', 0, 'food')";
+        $stm = $con->prepare($query);
         $stm->execute();
-
-        $query = "insert into categories (category,disabled,slug) values (travel, 0, travel)";// full colons means provided later
-        $stm = $con -> prepare($query);
+        
+        $query = "insert into categories (category, disabled, slug) values ('travel', 0, 'travel')";
+        $stm = $con->prepare($query);
         $stm->execute();
-
-        $query = "insert into categories (category,disabled,slug) values (lifestyle, 0, lifestyle)";// full colons means provided later
-        $stm = $con -> prepare($query);
+        
+        $query = "insert into categories (category, disabled, slug) values ('lifestyle', 0, 'lifestyle')";
+        $stm = $con->prepare($query);
         $stm->execute();
-
-
-        $query = "insert into categories (category,disabled,slug) values (music, 0, music)";// full colons means provided later
-        $stm = $con -> prepare($query);
+        
+        $query = "insert into categories (category, disabled, slug) values ('music', 0, 'music')";
+        $stm = $con->prepare($query);
         $stm->execute();
 
 
