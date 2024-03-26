@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    // session_start();
 
 $errors = [];
 include __DIR__ . '/../core/init.php';
