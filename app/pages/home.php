@@ -73,7 +73,7 @@ include __DIR__ . '/../core/init.php';
             </div>
         </form>
 
-        <?php if($_SESSION['USER']){ ?>
+        <?php if($_SESSION['USER']['username']){ ?>
         <div class="dropdown text-end">
         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
                    aria-expanded="false">
