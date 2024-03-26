@@ -5,4 +5,5 @@ include __DIR__ . '/../core/init.php';
     session_destroy();
  }
 
- redirect_login();
+//  redirect_login();
+header('../pages/login.php');
