@@ -1,6 +1,6 @@
 <?php
 include __DIR__ . '/../core/init.php';
-session_start();
+// session_start();
 
 if(session_status() == PHP_SESSION_ACTIVE){
   if($_SESSION['USER']){
