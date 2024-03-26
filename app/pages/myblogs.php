@@ -9,14 +9,17 @@ if(session_status() == PHP_SESSION_ACTIVE){
 if($_SESSION['USER']){
   $user_image = $_SESSION['USER']['image'];
 
-
 }
+
+
+if(!$_SESSION['USER']){
+  redirect_login();
+}
+
     $user_id = $_SESSION['USER']['id'];
     $user_image = $_SESSION['USER']['image'];
     $query = "select posts.*, categories.category from posts join categories on posts.category_id = categories.id where user_id=:user_id";
     $rows = query($query, ['user_id'=> $user_id]);
-}else{
-  redirect_login();
 }
 ?>
 
