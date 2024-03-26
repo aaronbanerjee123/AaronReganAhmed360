@@ -2,8 +2,8 @@
 include __DIR__ . '/../core/init.php';
  if(!empty($_SESSION['USER'])){
     unset($_SESSION['USER']);
-    session_destroy();
+   //  session_destroy();
  }
 
-//  redirect_login();
-header('../pages/login.php');
+ redirect_login();
+// header('../pages/login.php');
