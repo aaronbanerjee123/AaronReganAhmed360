@@ -300,28 +300,17 @@ if(!function_exists('create_tables')){
         $stm = $con->prepare($query); 
         $stm->execute();
 
-        $query = "insert into categories (category, disabled, slug) values ('fitness', 0, 'fitness')";
-        $stm = $con->prepare($query);
-        $stm->execute();
-        
-        $query = "insert into categories (category, disabled, slug) values ('food', 0, 'food')";
-        $stm = $con->prepare($query);
-        $stm->execute();
-        
-        $query = "insert into categories (category, disabled, slug) values ('travel', 0, 'travel')";
-        $stm = $con->prepare($query);
-        $stm->execute();
-        
-        $query = "insert into categories (category, disabled, slug) values ('lifestyle', 0, 'lifestyle')";
-        $stm = $con->prepare($query);
-        $stm->execute();
-        
-        $query = "insert into categories (category, disabled, slug) values ('music', 0, 'music')";
-        $stm = $con->prepare($query);
-        $stm->execute();
-
-
+        $query = "INSERT IGNORE INTO categories (category, disabled, slug) VALUES
+        ('fitness', 0, 'fitness'),
+        ('food', 0, 'food'),
+        ('travel', 0, 'travel'),
+        ('lifestyle', 0, 'lifestyle'),
+        ('music', 0, 'music')";
     
+        $stm = $con->prepare($query);
+        $stm->execute();
+
+
         $query = "create table if not exists posts(
             id int primary key auto_increment,
             user_id int,
