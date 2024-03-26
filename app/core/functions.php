@@ -264,7 +264,6 @@ if(!function_exists('create_tables')){
         $stm = $con->prepare($query); 
         $stm->execute();
     
-    
         $query = "use ". DBNAME;
         $stm = $con->prepare($query); 
         $stm->execute();
@@ -276,7 +275,7 @@ if(!function_exists('create_tables')){
             email varchar(100) not null,
             password varchar(255) not null,
             image varchar(1024) null,
-            date datetime default current_timestamp,
+            date timestamp default current_timestamp,
             role varchar(10) not null,
     
             key username (username),
@@ -296,10 +295,32 @@ if(!function_exists('create_tables')){
             key category (category)
     
         )";
+
+
         $stm = $con->prepare($query); 
         $stm->execute();
 
-       $query = "insert into categories (category,email,password,role,image) values (:username,:email,:password,:role,:image)";
+        $query = "insert into categories (category,disabled,slug) values (fitness, 0, fitness)";// full colons means provided later
+        $stm = $con -> prepare($query);
+        $stm->execute();
+
+        $query = "insert into categories (category,disabled,slug) values (food, 0, food)";// full colons means provided later
+        $stm = $con -> prepare($query);
+        $stm->execute();
+
+        $query = "insert into categories (category,disabled,slug) values (travel, 0, travel)";// full colons means provided later
+        $stm = $con -> prepare($query);
+        $stm->execute();
+
+        $query = "insert into categories (category,disabled,slug) values (lifestyle, 0, lifestyle)";// full colons means provided later
+        $stm = $con -> prepare($query);
+        $stm->execute();
+
+
+        $query = "insert into categories (category,disabled,slug) values (music, 0, music)";// full colons means provided later
+        $stm = $con -> prepare($query);
+        $stm->execute();
+
 
     
         $query = "create table if not exists posts(
@@ -309,7 +330,7 @@ if(!function_exists('create_tables')){
             title varchar(100) not null,
             content text null,
             image varchar(1024) null,
-            date datetime default current_timestamp,
+            date timestamp default current_timestamp,
             slug varchar(100) not null,
     
             key user_id (user_id),
@@ -326,7 +347,7 @@ if(!function_exists('create_tables')){
             post_id int,
             comment text null,
             user_id int,
-            date datetime default current_timestamp
+            date timestamp default current_timestamp
         )";
     
         $stm = $con->prepare($query); 
