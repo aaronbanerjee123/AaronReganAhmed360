@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 $errors = [];
 include __DIR__ . '/../core/init.php';
@@ -13,8 +12,9 @@ if (!empty($_POST)) {
     if ($row) {
         if (password_verify($_POST['password'], $row[0]['password'])) {
             authenticate($row);
-            redirect_home();
-            // header("location: ../pages/home.php");
+            session_start();
+            // redirect_home();
+            header("location: ../pages/home.php");
         } else {
             $errors['email'] = "Wrong email or password";
         }
