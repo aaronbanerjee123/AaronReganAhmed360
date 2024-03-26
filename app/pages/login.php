@@ -14,7 +14,7 @@ if (!empty($_POST)) {
             authenticate($row);
             session_start();
             // redirect_home();
-            header("location: /aaron202/app/pages/home.php");
+            header("location: ../pages/home.php");
         } else {
             $errors['email'] = "Wrong email or password";
         }
