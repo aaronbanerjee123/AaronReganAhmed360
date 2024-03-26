@@ -8,4 +8,4 @@ include __DIR__ . '/../core/init.php';
  header("Pragma: no-cache"); // HTTP 1.0.
  header("Expires: 0"); 
 //  redirect_login();
-header('../pages/login.php');
+header('Location: ../pages/login.php');
