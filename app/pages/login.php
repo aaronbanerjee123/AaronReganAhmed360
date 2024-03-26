@@ -15,7 +15,6 @@ if (!empty($_POST)) {
             session_start();
             redirect_home();
            
-
         } else {
             $errors['email'] = "Wrong email or password";
         }
