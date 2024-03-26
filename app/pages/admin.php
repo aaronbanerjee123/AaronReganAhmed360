@@ -2,7 +2,7 @@
 session_start();
 include __DIR__ . "/../core/init.php";
 
-  if(!logged_in()){
+  if(!logged_in() || $_SESSION['USER']['role'] != 'admin'){
     redirect_login();
   }
 
