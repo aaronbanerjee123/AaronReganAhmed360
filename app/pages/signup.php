@@ -235,12 +235,12 @@ include __DIR__ . '/../core/init.php';
     </div>
 
     <div class="form-floating mb-2">
-            <select name="role" class="form-select">
+        <select name="role" class="form-select">
               <option value="user">User</option>
               <option value="admin">Admin</option>
-            </select>
-            <label for="form-select">Role</label>
-          </div>
+          </select>
+        <label for="form-select">Role</label>
+      </div>
 
 
     <div class="my-2">
