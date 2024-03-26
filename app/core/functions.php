@@ -50,7 +50,7 @@ if(!function_exists('esc')){
 
 if(!function_exists('redirect_login')){
         function redirect_login(){
-        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/login.php/');
+        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/login.php');
         die;
     }
 }
@@ -58,7 +58,7 @@ if(!function_exists('redirect_login')){
 
 if(!function_exists('redirect_home')){
     function redirect_home(){
-        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/home.php/');
+        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/home.php');
         die;
     }
 
@@ -67,7 +67,7 @@ if(!function_exists('redirect_home')){
 
 if(!function_exists('redirect_admin')){
     function redirect_admin(){
-        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/admin.php/');
+        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/admin.php');
         die;
     }
 }
