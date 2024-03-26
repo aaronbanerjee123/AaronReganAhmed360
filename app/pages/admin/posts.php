@@ -1,3 +1,11 @@
+<?php 
+ $section = $_GET['section'] ?? 'dashboard';
+
+ $action = $_GET['action'] ?? 'view';//add
+
+ $id = $_GET['id'] ?? '0';
+?>
+
 <?php if($action == 'add'):?>
           <div class="col-md-6 mx-auto">
           <form method="post" enctype="multipart/form-data">
@@ -235,7 +243,7 @@
 
 
 <h1>Posts page
-    <button class="btn btn-success"><a class="text-white" href="<?=ROOT?>/admin/posts/add">Add Post</a></button>
+<button class="btn btn-success"><a class="text-white" href="<?=ROOT?>pages/admin.php?section=posts&action=add">Add New</a></button>
 </h1>
 
 
@@ -269,19 +277,19 @@
 
         <td>
   
-          <img src="<?=get_image($row['image'])?>" style="width:100px;height:100px;object-fit:cover;">
+          <img src="<?=ROOT?>pages/<?=$row['image']?>" style="width:100px;height:100px;object-fit:cover;">
         </td>
 
         <td><?=$row['date']?></td>
      
-        <td><a class="text-white" href="<?=ROOT?>/admin/posts/edit/<?=$row['id']?>"><button class="btn btn-warning text-white btn-sm">Edit</i></button></a></td>
+        <td><a class="text-white" href="<?=ROOT?>pages/admin.php?section=posts&action=edit&id=<?=$row['id']?>"><button class="btn btn-warning text-white btn-sm">Edit</i></button></a></td>
         
 <!--            
         <a class="text-white" href="<?=ROOT?>/admin/posts/edit/<?=$row['id']?>">Add New</a>
         <td><button class="btn btn-danger text-white btn-sm"><i class="bi bi-trash-fill"></i></button></td>
      -->
     
-        <td><a class="text-white" href="<?=ROOT?>/admin/posts/delete/<?=$row['id']?>"><button class="btn btn-danger text-white btn-sm">Delete</i></button></a></td>
+        <td><a class="text-white" href="<?=ROOT?>pages/admin.php?section=posts&action=delete&id=<?=$row['id']?>"><button class="btn btn-danger text-white btn-sm">Delete</i></button></a></td>
 
     
     </tr>

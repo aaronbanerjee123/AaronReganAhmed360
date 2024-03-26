@@ -1,3 +1,14 @@
+
+<?php 
+ 
+ $section = $_GET['section'] ?? 'dashboard';
+
+ $action = $_GET['action'] ?? 'view';//add
+
+ $id = $_GET['id'] ?? '0';
+?>
+
+
 <?php
 
 if($action == 'add'){

@@ -1,3 +1,12 @@
 <?php
-    define('ROOT','/aaron202/public');
+if(!defined("ROOT")){
+    define('ROOT','http://localhost/omgblog/app/');
+
+}
+
+if(!defined("APP_NAME")){
     define('APP_NAME',"My blog");
+
+}
+
+

@@ -1,7 +1,19 @@
 <?php 
+
+session_start();
+
+include __DIR__ . '/../core/init.php';
+
+
+if($_SESSION['USER']){
+  $user_image = $_SESSION['USER']['image'];
+
+
+}
+
     $user_image= $_SESSION['USER']['image'];
 
- $id = $url[1] ?? '';
+ $id = $_GET['id'];
  $query = "select * from posts where id =:id limit 1";
  $row = query_row($query,['id' => $id]);
  if(!empty($_POST)){
@@ -62,59 +74,118 @@
  } 
 }
 
+
+
 ?>
-<!doctype html>
+
+
+
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href = "../public/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+  header{
+    background-color: #7F95D1; /* Change the background color */
+  }
+ 
+  .link-gray {
+    color: black;
+  }
+
+  .link-gray:hover {
+    color: black;
+    color: lightgray; /* Change color to black on hover */
+  }
+
   
-    <title>Home · My Blog</title>
+</style>
 
+</head>
+<body>
+  
 
-
-    <link href="<?=ROOT?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+<header class="p-3  border-bottom">
     
-    <!-- Custom styles for this template -->
-    <link href="<?=ROOT?>/assets/css/headers.css" rel="stylesheet">
-  </head>
-  <body>
-  
-  <?php
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      
+      
+      <a href="<?=ROOT?>pages/home.php" class="nav-link px-2 link-dark" style="font-size: 24px;">InSightInk</a>
 
-  require_once("header.php");
-  ?>
+
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="<?=ROOT?>pages/myblogs.php" class="nav-link px-2 link-gray">My Blog</a></li>
+          <li><a href="<?=ROOT?>pages/add.php" class="nav-link px-2 link-gray">Add Blog</a></li>
+          <?php if(!$_SESSION['USER']) {?>
+                      
+            <li><a href="<?=ROOT?>pages/login.php" class="nav-link px-2 link-gray">Login</a></li>
+
+            <?php } ?>
+        </ul>
+
+        <form class="row align-items-center mb-3 mb-lg-0 me-lg-3" role="search" action="<?=ROOT?>pages/search.php">
+            <div class="col-md-auto">
+                <input type="search" name="find" class="form-control" placeholder="Search..." aria-label="Search">
+            </div>
+            <div class="col-md-auto">
+                <button type="submit" class="btn btn-dark">Find</button>
+            </div>
+        </form>
+
+        <?php if($_SESSION['USER']){ ?>
+        <div class="dropdown text-end">
+        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+               
+                    <img src="<?=ROOT?>pages/<?=$user_image?>" alt="mdo" width="32" height="32"
+                         class="rounded-circle">
+                </a>
+          <ul class="dropdown-menu text-small">
+            <li><a class="dropdown-item" href="<?=ROOT?>pages/admin.php">Admin</a></li>
+            <li><a class="dropdown-item" href="<?=ROOT?>pages/settings.php">Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="<?=ROOT?>pages/logout.php">Sign out</a></li>
+          </ul>
+        </div>
+        <?php } ?>
+      </div>
+    </div>
+  </header>
+
 
 
   <!--slider -->
-  <link rel="stylesheet" href="<?=ROOT?>/assets/slider/ism/css/my-slider.css"/>
-  <script src="<?=ROOT?>/assets/slider/ism/js/ism-2.2.min.js"></script>
+  <link rel="stylesheet" href="<?=ROOT?>public/assets/slider/ism/css/my-slider.css"/>
+  <script src="<?=ROOT?>public/assets/slider/ism/js/ism-2.2.min.js"></script>
     
 
 <div class="ism-slider" data-transition_type="fade" data-play_type="loop" id="my-slider">
   <ol>
     <li>
-      <img src="<?=ROOT?>/assets/slider/ism/image/slides/flower-729514_1280.jpg">
-      <div class="<?=ROOT?>/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
+      <img src="<?=ROOT?>public/assets/slider/ism/image/slides/flower-729514_1280.jpg">
+      <div class="<?=ROOT?>public/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
     </li>
     <li>
-      <img src="<?=ROOT?>/assets/slider/ism/image/slides/beautiful-701678_1280.jpg">
-      <div class="<?=ROOT?>/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
+      <img src="<?=ROOT?>public/assets/slider/ism/image/slides/beautiful-701678_1280.jpg">
+      <div class="<?=ROOT?>public/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
     </li>
     <li>
-      <img src="<?=ROOT?>/assets/slider/ism/image/slides/summer-192179_1280.jpg">
-      <div class="<?=ROOT?>/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
+      <img src="<?=ROOT?>public/assets/slider/ism/image/slides/summer-192179_1280.jpg">
+      <div class="<?=ROOT?>public/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
     </li>
     <li>
-      <img src="<?=ROOT?>/assets/slider/ism/image/slides/city-690332_1280.jpg">
-      <div class="<?=ROOT?>/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
+      <img src="<?=ROOT?>public/assets/slider/ism/image/slides/city-690332_1280.jpg">
+      <div class="<?=ROOT?>public/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
     </li>
   </ol>
 </div>
-
-
 
 <div class="col-md-6 mx-auto">
                   <form method="post" enctype="multipart/form-data">
@@ -133,8 +204,8 @@
 
                 <div class="my-2">
                   <label class="d-block">
-                    <img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover; border: 5px solid lightgray; border-radius: 10px;">
-                    <input type="file" name="image" onchange="display_image_edit(this.files[0])" class= " mt-4">
+                    <img class="mx-auto d-block image-preview-edit" src="<?=ROOT?>pages/<?=$row['image']?>" style="cursor:pointer;width:150px;height:150px;object-fit:cover; border: 5px solid lightgray; border-radius: 10px;">
+                    <input value="<?=ROOT?>pages/<?=$row['image']?>" type="file" name="image" onchange="display_image_edit(this.files[0])" class= " mt-4">
                   </label>
                 
                   <script>
@@ -195,7 +266,7 @@
 
                   
                   <button class="mt-4 w-30 btn btn-lg btn-success float-end" type="submit">Save</button>
-                  <a href = "<?=ROOT?>/admin/posts/"><button class="mt-4 w-30 btn btn-lg btn-dark " type="button">back</button>
+                  <a href = "<?=ROOT?>pages/home.php"><button class="mt-4 w-30 btn btn-lg btn-dark " type="button">back</button>
               </a>
 
               <?php endif;?>

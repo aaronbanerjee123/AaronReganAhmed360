@@ -1,25 +1,31 @@
 <?php
+session_start();
+include __DIR__ . "/../core/init.php";
+
   if(!logged_in()){
     redirect_login();
   }
-  $section = $url[1] ?? 'dashboard';//users
-  $action = $url[2] ?? 'view';//add
-  $id = $url[3] ?? 0;
+
+  $section = $_GET['section'] ?? 'dashboard';
+
+  $action = $_GET['action'] ?? 'view';//add
+
+  $id = $_GET['id'] ?? '0';
 
   
-  $filename = "../app/pages/admin/".$section.".php"; //wonder why we need  ../ here probably because we are opened in public
+  $filename = "admin/".$section.".php"; //wonder why we need  ../ here probably because we are opened in public
   if(!file_exists($filename)){
-    $filename =  "../app/pages/admin/404.php";
+    $filename =  "admin/404.php";
   }
 //add new
 
 if($section == 'users'){
-  require_once '../app/pages/admin/users-controller.php';
+  require_once 'admin/users-controller.php';
 }// this file is connected to users.php, it manages its post requests
 elseif($section == "categories"){
-  require_once '../app/pages/admin/categories-controller.php';
+  require_once 'admin/categories-controller.php';
 }elseif($section =='posts'){
-  require_once '../app/pages/admin/posts-controller.php';
+  require_once 'admin/posts-controller.php';
 
 }
 
@@ -40,7 +46,7 @@ elseif($section == "categories"){
   
     
 
-<link href="<?=ROOT?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?=ROOT?>public/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -97,21 +103,21 @@ elseif($section == "categories"){
 
     
     <!-- Custom styles for this template -->
-    <link href="<?=ROOT?>assets/css/dashboard.css" rel="stylesheet">
+    <link href="<?=ROOT?>public/assets/css/dashboard.css" rel="stylesheet">
 
 
 </head>
   <body>
     
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="<?=ROOT?>/home">InsightInk</a>
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="<?=ROOT?>pages/home.php">InsightInk</a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="<?=ROOT?>/logout">Sign out</a>
+      <a class="nav-link px-3" href="<?=ROOT?>pages/logout.php">Sign out</a>
     </div>
   </div>
 </header>
@@ -122,28 +128,28 @@ elseif($section == "categories"){
       <div class="position-sticky pt-3 sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link <?=$section== 'dashboard' ? 'active' : '' ?>"  aria-current="page" href="<?=ROOT?>/admin">
+            <a class="nav-link <?=$section== 'dashboard' ? 'active' : '' ?>"  aria-current="page" href="<?=ROOT?>pages/admin.php">
              <i class="bi bi-speedometer"></i>
                 Dashboard
             </a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link <?=$section== 'users' ? 'active' : '' ?>" aria-current="page" href="<?=ROOT?>/admin/users">
+            <a class="nav-link <?=$section== 'users' ? 'active' : '' ?>" aria-current="page" href="<?=ROOT?>pages/admin.php?section=users">
              <i class="bi bi-person"></i>
                 Users
             </a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link <?=$section== 'categories' ? 'active' : '' ?>"" aria-current="page" href="<?=ROOT?>/admin/categories">
+            <a class="nav-link <?=$section== 'categories' ? 'active' : '' ?>"" aria-current="page" href="<?=ROOT?>pages/admin.php?section=categories">
              <i class="bi bi-tags"></i>
                 Categories
             </a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link <?=$section== 'posts' ? 'active' : '' ?>" aria-current="page" href="<?=ROOT?>/admin/posts">
+            <a class="nav-link <?=$section== 'posts' ? 'active' : '' ?>" aria-current="page" href="<?=ROOT?>pages/admin.php?section=posts">
              <i class="bi bi-file-post"></i>
                 Posts
             </a>
@@ -159,7 +165,7 @@ elseif($section == "categories"){
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
-            <a class="nav-link" href="<?=ROOT?>/home">
+            <a class="nav-link" href="<?=ROOT?>pages/home.php">
             <i class="bi bi-globe"></i>
               Front end
             </a>
@@ -185,7 +191,7 @@ elseif($section == "categories"){
 </div>
  
 
-    <script src="<?=ROOT?>/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="<?=ROOT?>/assets/js/dashboard.js"></script>
+    <script src="<?=ROOT?>public/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?=ROOT?>public/assets/js/dashboard.js"></script>
   </body>
 </html>

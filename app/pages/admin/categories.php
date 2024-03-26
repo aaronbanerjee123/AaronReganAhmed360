@@ -1,3 +1,12 @@
+<?php 
+ 
+ $section = $_GET['section'] ?? 'dashboard';
+
+ $action = $_GET['action'] ?? 'view';//add
+
+ $id = $_GET['id'] ?? '0';
+?>
+
 <?php if($action == 'add'):?>
           <div class="col-md-6 mx-auto">
           <form method="post" enctype="multipart/form-data">
@@ -200,7 +209,7 @@
 
 
 <h1>Categories Page
-    <button class="btn btn-success"><a class="text-white" href="<?=ROOT?>/admin/categories/add">Add New</a></button>
+    <button class="btn btn-success"><a class="text-white" href="<?=ROOT?>pages/admin.php?section=categories&action=add">Add New</a></button>
 </h1>
 
 
@@ -235,12 +244,12 @@
       
      
         
-<!--            
-        <a class="text-white" href="<?=ROOT?>/admin/categories/edit/<?=$row['id']?>">Add New</a>
-        <td><button class="btn btn-danger text-white btn-sm"><i class="bi bi-trash-fill"></i></button></td>
-     -->
+           
+        <a class="text-white" href="<?=ROOT?>pages/admin.php?section=categories&action=edit&id=<?=$row['id']?>">Add New</a>
+        <!-- <td><button class="btn btn-danger text-white btn-sm"><i class="bi bi-trash-fill"></i></button></td> -->
+  
     
-        <td><a class="text-white" href="<?=ROOT?>/admin/categories/delete/<?=$row['id']?>"><button class="btn btn-danger text-white btn-sm">Delete</i></button></a></td>
+        <td><a class="text-white" href="<?=ROOT?>pages/admin.php?section=categories&action=delete&id=<?=$row['id']?>"><button class="btn btn-danger text-white btn-sm">Delete</i></button></a></td>
 
     
     </tr>

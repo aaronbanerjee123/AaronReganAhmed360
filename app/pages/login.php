@@ -1,6 +1,8 @@
 <?php
-$errors = [];
+            session_start();
 
+$errors = [];
+include __DIR__ . '/../core/init.php';
 if (!empty($_POST)) {
     // Your PHP login logic here
     // I'm assuming you have the necessary functions like `query`, `authenticate`, and `redirect_admin` defined elsewhere
@@ -73,7 +75,7 @@ if (!empty($_POST)) {
 </head>
 <body>
   <div class="container">
-    <h1 class="text-center"><a href="<?= ROOT ?>/home">InsightInk</a></h1>
+    <h1 class="text-center"><a href="<?=ROOT?>pages/home.php">InsightInk</a></h1>
     <h2 class="text-center">Please sign in</h2>
     <form method="post">
       <div class="form-group">
@@ -88,7 +90,7 @@ if (!empty($_POST)) {
         <input type="password" class="form-control" id="password" name="password" placeholder="Password">
       </div>
       <div class="text-center">
-        Don't have an account? <a href="<?= ROOT ?>/signup">Signup here</a>
+        Don't have an account? <a href="<?= ROOT ?>pages/signup.php">Signup here</a>
       </div>
       <button type="submit" class="btn btn-info btn-block">Sign in</button>
     </form>

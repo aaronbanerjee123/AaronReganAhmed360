@@ -1,3 +1,15 @@
+
+<?php 
+ 
+ $section = $_GET['section'] ?? 'dashboard';
+
+ $action = $_GET['action'] ?? 'view';//add
+
+ $id = $_GET['id'] ?? '0';
+?>
+
+
+
 <?php
 
 if($action == 'add'){
@@ -162,7 +174,7 @@ if($action == 'add'){
       }
     } //uploads/Screen Shot 2023-03-13 at 11.24.55 AM.png
   }
-  }if($action == 'delete'){
+  }if($action== 'delete'){
     $query = "select * from users where id =:id limit 1";
     $row = query_row($query,['id' => $id]);
     if(isset($_POST['deleteBtn'])){

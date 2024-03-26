@@ -1,1 +1,1 @@
-<?php header("Location: public");?>
+<?php header("Location: 'http://cosc.360.ok.ubc.ca/aaron202/app/pages/home.php");?> ## Change this 

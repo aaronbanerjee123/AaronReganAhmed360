@@ -1,4 +1,6 @@
 <?php
+include __DIR__ . '/../core/init.php';
+
   if(!empty($_POST)){
     $errors = [];
 
@@ -100,7 +102,7 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
     
 
-<link href="<?=ROOT?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?=ROOT?>public/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -157,7 +159,7 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="<?=ROOT?>/assets/css/signin.css" rel="stylesheet">
+    <link href="<?=ROOT?>public/assets/css/signin.css" rel="stylesheet">
   </head>
   <body class="text-center">
     
@@ -234,7 +236,7 @@
     </div>
 
     <div class="my-2">
-      Already have an account? <a href="<?=ROOT?>/login">Login here</a>
+      Already have an account? <a href="<?=ROOT?>pages/login.php">Login here</a>
     </div>
 
     <div class="checkbox mb-3">

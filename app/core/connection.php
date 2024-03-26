@@ -1,14 +1,16 @@
 <?php
 if($_SERVER['SERVER_NAME'] == "localhost"){
-    define('DBUSER', "root");
-    define('DBPASS' , "");
-    define('DBNAME', "myblog_db");
-    define('DBHOST' ,"localhost");
+    if(!defined('DBUSER')) define ("DBUSER","root");
+    if(!defined('DBPASS')) define ("DBPASS","");
+
+    if(!defined('DBNAME')) define ("DBNAME", "myblog_db");
+    if(!defined('DBHOST')) define ("DBHOST", "localhost");
 }else{
-    define('DBUSER', "root");
-    define('DBPASS' , "");
-    define('DBNAME', "myblog_db");
-    define('DBHOST' ,"localhost");
+    if(!defined("DBUSER")) define ("DBUSER","root");
+    if(!defined("DBPASS")) define ("DBPASS","");
+
+    if(!defined('DBNAME')) define ("DBNAME", "myblog_db");
+    if(!defined('DBHOST')) define ("DBHOST", "localhost");
 }
 
 
