@@ -297,18 +297,31 @@ if(!function_exists('create_tables')){
         )";
 
 
+
         $stm = $con->prepare($query); 
         $stm->execute();
 
-        $query = "INSERT IGNORE INTO categories (category, disabled, slug) VALUES
-        ('fitness', 0, 'fitness'),
-        ('food', 0, 'food'),
-        ('travel', 0, 'travel'),
-        ('lifestyle', 0, 'lifestyle'),
-        ('music', 0, 'music')";
+        $query = "SELECT * FROM categories";
+        $rows = query($query);
+
+        if(count($rows) != 5){
+            $query = "INSERT IGNORE INTO categories (category, disabled, slug) VALUES
+            ('fitness', 0, 'fitness'),
+            ('food', 0, 'food'),
+            ('travel', 0, 'travel'),
+            ('lifestyle', 0, 'lifestyle'),
+            ('music', 0, 'music')";
+
+            $stm = $con->prepare($query);
+            $stm->execute();
+
+        }
+
+
+
+   
     
-        $stm = $con->prepare($query);
-        $stm->execute();
+       
 
 
         $query = "create table if not exists posts(
@@ -318,7 +331,7 @@ if(!function_exists('create_tables')){
             title varchar(100) not null,
             content text null,
             image varchar(1024) null,
-            date timestamp default current_timestamp,
+            date 2 default current_timestamp,
             slug varchar(100) not null,
     
             key user_id (user_id),
