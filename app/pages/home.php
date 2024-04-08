@@ -5,6 +5,11 @@ include __DIR__ . '/../core/init.php';
 
   if($_SESSION['USER']){
     $user_image = $_SESSION['USER']['image'];
+
+    if (isset($_SESSION['login_time'])) {// the login time displayed after the user logins successfully
+      echo "You logged in on: " . $_SESSION['login_time'];
+    }
+  
   }
 
 
@@ -36,6 +41,21 @@ include __DIR__ . '/../core/init.php';
     color: black;
     color: lightgray; /* Change color to black on hover */
   }
+  /* Light Theme*/
+.light-theme {
+    background-color: white; 
+    color: black; 
+}
+
+/* Dark Theme */
+.dark-theme {
+    background-color: black;
+    color: white; 
+}
+
+.dark-theme a, .dark-theme button {
+    color: white; 
+}
 
   
 </style>
@@ -71,6 +91,9 @@ include __DIR__ . '/../core/init.php';
             <div class="col-md-auto">
                 <button type="submit" class="btn btn-dark">Find</button>
             </div>
+            <div class="col-md-auto">
+                <button id="theme-toggle" class="btn btn-outline-secondary">Toggle Dark Theme</button>
+             </div>
         </form>
 
         <?php if($_SESSION['USER']['username']){ ?>
@@ -123,7 +146,7 @@ include __DIR__ . '/../core/init.php';
   </ol>
 </div>
   <!-- end slider -->
-
+<div onclick="showPopup()" style="cursor: pointer;"> <!--wrapping content with the click feature -->
     <main class="p-2">
         <h3 class="mx-4">Featured</h3>
 
@@ -145,7 +168,12 @@ include __DIR__ . '/../core/init.php';
           
         ?>
   </div>
-    </main>
+ </main>
+</div>
+   
+    <div id="popupMessage" style="display: none; position: fixed; bottom: 20px; right: 20px; background-color: black; color: white; padding: 20px; z-index: 1000;"> <!-- the popup message -->
+      You're now on the homepage.
+  </div>
     </body>
 </html>
 
@@ -213,6 +241,49 @@ $(document).ready(function() {
 });
 
  </script>
+ <script> 
+  function showPopup() {//the javasccript for showing messages
+    $("#popupMessage").show(); // Use jQuery to show the popup
+
+    setTimeout(function() {
+        $("#popupMessage").hide(); // Use jQuery to hide the popup after 3 seconds
+    }, 3000);
+  }
+ </script>
+ <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggleButton = document.getElementById('theme-toggle');
+    const bodyElement = document.body;
+
+    themeToggleButton.addEventListener('click', function() {
+        bodyElement.classList.toggle('dark-theme'); // Toggle dark theme class
+
+        function updateAriaLabel() {
+        if (bodyElement.classList.contains('dark-theme')) {
+            themeToggleButton.setAttribute('aria-label', 'Toggle light theme');
+            themeToggleButton.textContent = 'Toggle Light Theme';
+        } else {
+            themeToggleButton.setAttribute('aria-label', 'Toggle dark theme');
+            themeToggleButton.textContent = 'Toggle Dark Theme';
+        }
+        }
+
+        // Optionally, save the user's theme preference
+        if (bodyElement.classList.contains('dark-theme')) {
+            localStorage.setItem('theme', 'dark');
+        } else {
+            localStorage.setItem('theme', 'light');
+        }
+    });
+
+    // Check for saved theme preference, if any, and apply it
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        bodyElement.classList.add(savedTheme);
+    }
+});
+</script>
+
 
   </body>
   

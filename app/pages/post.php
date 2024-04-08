@@ -279,7 +279,27 @@
         setInterval(fetchComments, 10000); // 4000 milliseconds = 4 seconds
     });
      </script>
-  
+    <script>//new
+      document.querySelectorAll('.post').forEach(post => {
+      post.addEventListener('click', function() {
+        const postId = this.getAttribute('post_id');
+        fetch('record_click.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ postId: postId }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Click recorded', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+              });
+          });
+      });
+    </script>
   
   
   </body>

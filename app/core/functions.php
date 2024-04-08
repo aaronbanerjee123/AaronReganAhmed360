@@ -182,7 +182,19 @@ if(!function_exists('logged_in')){
     }
     
 }
+if(!function_exists('updateSessionActivity')) {//this is for track user session activity
+    function updateSessionActivity($userId) {
+        $query = "INSERT INTO active_sessions (user_id, last_active) VALUES (?, NOW()) ON DUPLICATE KEY UPDATE last_active = NOW()";
+        return query($query, [$userId]);
+    }
+}
 
+if(!function_exists('cleanUpStaleSessions')) {//this is to clean up the session
+    function cleanUpStaleSessions() {
+        $query = "DELETE FROM active_sessions WHERE last_active < (NOW() - INTERVAL 30 MINUTE)";
+        return query($query);
+    }
+}
 
 if(!function_exists('str_to_url')){
     function str_to_url($url){
@@ -296,8 +308,7 @@ if(!function_exists('create_tables')){
     
         )";
 
-
-
+        
         $stm = $con->prepare($query); 
         $stm->execute();
 
@@ -316,6 +327,32 @@ if(!function_exists('create_tables')){
             $stm->execute();
 
         }
+
+
+
+        /*
+
+        // Prepare and execute the select query
+        $query = "SELECT * FROM categories";
+        $stm = $con->prepare($query);
+
+        $stm->execute();
+        // Fetch all rows
+        $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Check if the count of rows is not 5
+        if (count($rows) != 5) {
+            $insertQuery = "INSERT IGNORE INTO categories (category, disabled, slug) VALUES
+            ('fitness', 0, 'fitness'),
+            ('food', 0, 'food'),
+            ('travel', 0, 'travel'),
+            ('lifestyle', 0, 'lifestyle'),
+            ('music', 0, 'music')";
+
+        $stm = $con->prepare($insertQuery);
+        $stm->execute();
+}
+    */
 
 
 
@@ -351,6 +388,26 @@ if(!function_exists('create_tables')){
             date timestamp default current_timestamp
         )";
     
+        $stm = $con->prepare($query); 
+        $stm->execute();
+            //new
+        $query = "create table if not exists post_clicks(
+            id int primary key auto_increment,
+            post_id int NOT NULL,
+            user_id int,
+            clicked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )";
+    
+        $stm = $con->prepare($query); 
+        $stm->execute();
+            //new table for tracking active users
+        $query = "create table if not exists active_sessions (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NOT NULL,
+            session_start DATETIME DEFAULT CURRENT_TIMESTAMP,
+            last_active DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        )";
+        
         $stm = $con->prepare($query); 
         $stm->execute();
     

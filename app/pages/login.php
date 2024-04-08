@@ -12,7 +12,7 @@ if (!empty($_POST)) {
 
     if ($row) {
         if (password_verify($_POST['password'], $row[0]['password'])) {
-          
+          $_SESSION['login_time'] = date('Y-m-d H:i:s');// activity by date
             authenticate($row);
             // redirect_home();
             header("location: ../pages/home.php");
@@ -22,7 +22,7 @@ if (!empty($_POST)) {
     } else {
         $errors['email'] = "Wrong email or password";
     }
-}
+} 
 ?>
 
 <!DOCTYPE html>
@@ -76,6 +76,7 @@ if (!empty($_POST)) {
   </style>
 </head>
 <body>
+ <div onclick="showPopup()" style="cursor: pointer;"> <!-- the clickon for message popup function -->
   <div class="container">
     <h1 class="text-center"><a href="<?=ROOT?>pages/home.php">InsightInk</a></h1>
     <h2 class="text-center">Please sign in</h2>
@@ -101,5 +102,21 @@ if (!empty($_POST)) {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</div> 
+<div id="popupMessage" style="display: none; position: fixed; bottom: 20px; right: 20px; background-color: black; color: white; padding: 20px; z-index: 1000;"> <!-- the popup message -->
+    You're now on the login page.
+</div>
+<script>
+// The showPopup function
+function showPopup() {
+    var popup = document.getElementById('popupMessage');
+    popup.style.display = 'block'; // Show the popup
+
+    // Hide the popup after 3 seconds
+    setTimeout(function() {
+        popup.style.display = 'none';
+    }, 3000);
+}
+</script>
 </body>
 </html>
