@@ -16,7 +16,7 @@ if(!empty($_POST['id'])) {
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div class="col p-4 d-flex flex-column position-static">
                     <a href="' . ROOT . 'pages/post.php?slug=' . $row['slug'] . '">
-                        <h3 class="mb-0">' . $row['title'] . '</h3>
+                        <h3 class="mb-0" post-card-title">' . $row['title'] . '</h3>
                     </a>
                     <div class="mb-1 text-muted">' . date("Y-m-d", strtotime($row['date'])) . '</div>
                     <p class="card-text mb-auto">' . substr($row['content'], 0, 200) . '</p>

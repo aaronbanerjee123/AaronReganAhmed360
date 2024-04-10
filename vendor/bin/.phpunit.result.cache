@@ -1,0 +1,1 @@
+{"version":1,"defects":{"homeTest::testThatStringsAreTheSame":7,"LoginTest::testSuccessfulLogin":7,"LoginTest::testLogin":5},"times":{"homeTest::testThatStringsAreTheSame":0,"LoginTest::testThatStringsAreTheSame":0.003,"LoginTest::testSuccessfulLogin":0.011,"LoginTest::testLogin":5.105}}

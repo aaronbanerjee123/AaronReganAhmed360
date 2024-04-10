@@ -3,7 +3,7 @@
         <div class="col p-4 d-flex flex-column position-static">
             <strong class="d-inline-block mb-2 text-primary"><?=$row['category']?></strong>
             <a href="<?=ROOT?>pages/post.php?slug=<?=$row['slug']?>" style="text-decoration: none; color: inherit;">
-                <h3 class="mb-0"><?=$row['title']?></h3>
+                <h3 class="mb-0 post-card-title"><?=$row['title']?></h3>
             </a>
             <div class="mb-1 text-muted"><?=date("Y-m-d",strtotime($row['date']))?></div>
             <p class="card-text mb-auto"><?=substr($row['content'],0,200)?></p>
