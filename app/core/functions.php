@@ -386,6 +386,17 @@ if(!function_exists('create_tables')){
     
         $stm = $con->prepare($query); 
         $stm->execute();
+
+        $query = "create table if not exists commentData(
+            id int primary key auto_increment,
+            page text null,
+            user text null,
+            date timestamp default current_timestamp,
+            key(user)
+        )";
+    
+        $stm = $con->prepare($query); 
+        $stm->execute();
     
         }catch(PDOException $e){
             echo $e;

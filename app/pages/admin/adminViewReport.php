@@ -28,7 +28,7 @@ GROUP BY page";
 
 $filteredPageData = query($query); 
 
-$query = "SELECT user, MAX(date) AS recent_visit
+$query = "SELECT user, MAX(date) AS recent_visit,page
 FROM pageViews
 GROUP BY user
 ORDER BY recent_visit DESC";
@@ -36,9 +36,23 @@ ORDER BY recent_visit DESC";
 $filteredTrackingData = query($query);
 
 
+$query = "SELECT pageStats.user, pageStats.page, pageStats.date, recent_visit.idNum
+FROM pageViews pageStats
+INNER JOIN (
+    SELECT user, MAX(id) AS idNum, MAX(date) as latest_visit
+    FROM pageViews
+    GROUP BY user
+) recent_visit ON pageStats.user = recent_visit.user AND pageStats.date= recent_visit.latest_visit
+ORDER BY recent_visit.user DESC";
+
+$filteredVisitData = query($query);
 
 
+$query = "SELECT post_title, COUNT(*) as times_visited from post_views GROUP BY post_title ORDER by times_visited DESC";
+$postData = query($query);
 
+
+print_r($postData);
 ?>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -161,6 +175,7 @@ $filteredTrackingData = query($query);
         <tr>
             <th>Page</th>
             <th>Total Visits</th>
+            <th>Link to Post</th>
         </tr>
     </thead>
     <tbody>
@@ -168,6 +183,7 @@ $filteredTrackingData = query($query);
             <tr>
                 <td><?php echo $row['page']; ?></td>
                 <td><?php echo $row['total_visits']; ?></td>
+                
             </tr>
         <?php endforeach; ?>
     </tbody>
@@ -179,17 +195,42 @@ $filteredTrackingData = query($query);
         <tr>
             <th>Date</th>
             <th>User</th>
+            <th>Page</th>
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($filteredTrackingData as $row): ?>
+        <?php foreach ($filteredVisitData as $row): ?>
             <tr>
-                <td><?php echo $row['recent_visit']; ?></td>
+                <td><?php echo $row['date']; ?></td>
                 <td><?php echo $row['user']; ?></td>
+                <td><?php echo $row['page']; ?></td>
+
             </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
+
+<table class="table table-striped">
+    <h2>Most Popular Posts</h2>
+    <thead>
+        <tr>
+            <th>Post</th>
+            <th>Times Visited</th>
+            <th>Post Link</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($postData as $row): ?>
+            <tr>
+                <td><?php echo $row['post_title']; ?></td>
+                <td><?php echo $row['times_visited']; ?></td>
+                <td><a href="https://localhost/requirements/AaronReganAhmed360/app/pages/post.php?slug=<?php echo $row['post_title']; ?>">View Post</a></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
 
 
 <script>

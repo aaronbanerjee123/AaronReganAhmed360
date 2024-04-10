@@ -5,9 +5,14 @@
     if($_SESSION['USER']){
       $user_image = $_SESSION['USER']['image'];
       $user_id = $_SESSION['USER']['id'];
+      $slug = $_GET['slug'];
+      
+
+
+      $query = "INSERT INTO post_views (post_title,user_id) VALUES (:post_title,:user_id)";
+      query($query, ['post_title' => $slug, 'user_id' => $user_id]);
 
     }
-    $slug = $_GET['slug'];
 
 
     $url = $_SERVER['REQUEST_URI'];
@@ -24,6 +29,9 @@
       $comment = $_POST['comment'];
       $query = "INSERT into comments (comment,post_id,user_id) values (:comment, :post_id, :user_id)";
       query($query, ['user_id' => $user_id, 'post_id' => $post_id, 'comment' => $comment]);
+    
+      
+    
     }
 
 
@@ -183,7 +191,7 @@
               <button type="submit" class="btn btn-primary">Submit</button>
           </div>
       </div> -->
-                <div class="container mt-5">
+            <div class="container mt-5">
               <div class="row">
                   <div class="col-md-8 offset-md-2"> 
                       <form method="POST" id="comment_form" class="form-inline">
@@ -191,7 +199,7 @@
                               <label for="commentInput" class="mr-2">Comments</label>
                               <input type="text" name="comment" id="comment" class="form-control" style="width: 100%;" placeholder="Enter Comment"> <!-- Adjusted input width -->
                           </div>
-                          <button type="submit" class="btn btn-dark mt-2">Submit</button>
+                          <button type="submit" name="submit-button" class="btn btn-dark mt-2" onclick="registerComment()">Submit</button>
                       </form>
                   </div>
               </div>
@@ -229,7 +237,12 @@
 </main>
 
 
-    <script src="<?=ROOT?>public/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?=ROOT?>public/assets/bootstrap/js/bootstrap.bundle.min.js">
+  
+  
+  
+  
+    </script>
    
    <script>
     function formatDateTime(date) {

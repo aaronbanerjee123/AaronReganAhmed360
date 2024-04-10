@@ -8,10 +8,19 @@ $data = query($query); // Assuming you have a query function to fetch data from 
 // Convert the retrieved data into JSON format
 $searchTermsJson = json_encode(array_column($data, 'search_term'));
 $timesSearchedJson = json_encode(array_column($data, 'times_searched'));
+
+$query = 'SELECT search_term, times_searched FROM searchterms GROUP BY search_term ORDER BY times_searched DESC LIMIT 3';
+$searchTermRankings  = query($query);
+
+print_r($searchTermRankings);
 ?>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <canvas id="myChart"></canvas>
+
+
+
+
 
 <script>
 // Get the canvas element
@@ -38,4 +47,27 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+
+
+
+
 </script>
+
+<h1>Top 3 Most Popular Search Terms</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Search Term</th>
+            <th>Times Searched</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($searchTermRankings as $row): ?>
+            <tr>
+                <td><?php echo $row['search_term']; ?></td>
+                <td><?php echo $row['times_searched']; ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
