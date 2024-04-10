@@ -3,6 +3,10 @@ session_start();
 
 include __DIR__ . '/../core/init.php';
 
+$url = $_SERVER['REQUEST_URI'];
+$url = explode("/",$url);
+trackPageViews($url[5]);
+
 if(session_status() == PHP_SESSION_ACTIVE){
 
 

@@ -12,6 +12,11 @@
     $user_image = $_SESSION['USER']['image'];
   
     echo $id;
+    
+    $url = $_SERVER['REQUEST_URI'];
+    $url = explode("/",$url);
+    trackPageViews($url[5]);    
+
     if(!empty($_POST)){
         if($row){
   

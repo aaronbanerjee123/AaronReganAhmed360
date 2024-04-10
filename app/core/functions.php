@@ -50,7 +50,7 @@ if(!function_exists('esc')){
 
 if(!function_exists('redirect_login')){
         function redirect_login(){
-        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/login.php');
+        header('Location: https://localhost/requirements/AaronReganAhmed360/app/pages/login.php');
         die;
     }
 }
@@ -58,7 +58,7 @@ if(!function_exists('redirect_login')){
 
 if(!function_exists('redirect_home')){
     function redirect_home(){
-        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/home.php');
+        header('Location: https://localhost/requirements/AaronReganAhmed360/app/pages/home.php');
         die;
     }
 
@@ -67,14 +67,14 @@ if(!function_exists('redirect_home')){
 
 if(!function_exists('redirect_admin')){
     function redirect_admin(){
-        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/admin.php');
+        header('Location: https://localhost/requirements/AaronReganAhmed360/app/pages/admin.php');
         die;
     }
 }
 
 if(!function_exists('redirect_admin_users')){
     function redirect_admin_users(){
-        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/admin.php?section=users');
+        header('Location: https://localhost/requirements/AaronReganAhmed360/app/pages/admin.php?section=users');
         die;
     }
     
@@ -82,14 +82,14 @@ if(!function_exists('redirect_admin_users')){
 
 if(!function_exists('redirect_admin_categories')){
     function redirect_admin_categories(){
-        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/admin.php?section=categories');
+        header('Location: https://localhost/requirements/AaronReganAhmed360/app/pages/admin.php?section=categories');
         die;
     }
     
 }
 if(!function_exists('redirect_admin_posts')){
     function redirect_admin_posts(){
-        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/admin.php?section=posts');
+        header('Location: https://localhost/requirements/AaronReganAhmed360/app/pages/admin.php?section=posts');
 
         die;
     }
@@ -97,7 +97,7 @@ if(!function_exists('redirect_admin_posts')){
 
 if(!function_exists('redirect_admin_myblogs')){
     function redirect_admin_myblogs(){
-        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/myblogs.php');
+        header('Location: https://localhost/requirements/AaronReganAhmed360/app/pages/myblogs.php');
 
         die;
     }
@@ -105,7 +105,7 @@ if(!function_exists('redirect_admin_myblogs')){
 
 if(!function_exists('redirect_settings')){
     function redirect_settings(){
-        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/settings.php');
+        header('Location: https://localhost/requirements/AaronReganAhmed360/app/pages/settings.php');
         die;
     }
 }
@@ -250,10 +250,6 @@ if(!function_exists('get_pagination_vars')){
  
 }
 
-
-
-
-
 if(!function_exists('create_tables')){
     function create_tables(){
         try {
@@ -316,13 +312,7 @@ if(!function_exists('create_tables')){
             $stm->execute();
 
         }
-
-
-
-   
-    
        
-
 
         $query = "create table if not exists posts(
             id int primary key auto_increment,
@@ -331,7 +321,7 @@ if(!function_exists('create_tables')){
             title varchar(100) not null,
             content text null,
             image varchar(1024) null,
-            date 2 default current_timestamp,
+            date timestamp default current_timestamp,
             slug varchar(100) not null,
     
             key user_id (user_id),
@@ -353,6 +343,49 @@ if(!function_exists('create_tables')){
     
         $stm = $con->prepare($query); 
         $stm->execute();
+
+
+        $query = "create table if not exists searchterms(
+            id int primary key auto_increment,
+            search_term text null,
+            times_searched int,
+
+            key times_searched(times_searched),
+            key search_term(search_term)
+
+
+        )";
+    
+        $stm = $con->prepare($query); 
+        $stm->execute();
+
+        $query = "create table if not exists post_views(
+            id int primary key auto_increment,
+            post_title text null,
+            user_id int,
+            date timestamp default current_timestamp,
+
+            key(post_title)
+            
+
+
+        )";
+    
+        $stm = $con->prepare($query); 
+        $stm->execute();
+
+
+        $query = "create table if not exists pageViews(
+            id int primary key auto_increment,
+            page text null,
+            user text null,
+            date timestamp default current_timestamp,
+            key(user)
+
+        )";
+    
+        $stm = $con->prepare($query); 
+        $stm->execute();
     
         }catch(PDOException $e){
             echo $e;
@@ -363,3 +396,21 @@ if(!function_exists('create_tables')){
     
 }
 
+if(!function_exists('trackPageViews')){
+        function trackPageViews($page){
+
+        $query = "SELECT * from pageViews WHERE page like :page";
+        $rows_search = query($query, ['page' => $page]);
+
+        $user = $_SESSION['USER']['username'] ? $_SESSION['USER']['username'] : 'Guest';
+        
+
+          $query = "INSERT INTO pageViews (page, user) VALUES (:page, :user)";
+          $data['user'] = $user;
+          $data['page'] = $page;
+          query($query,$data);
+        
+
+    }
+
+}

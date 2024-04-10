@@ -4,13 +4,16 @@
     
     if($_SESSION['USER']){
       $user_image = $_SESSION['USER']['image'];
-    
-    
-    }
+      $user_id = $_SESSION['USER']['id'];
 
+    }
     $slug = $_GET['slug'];
 
-    $user_id = $_SESSION['USER']['id'];
+
+    $url = $_SERVER['REQUEST_URI'];
+    $url = explode("/",$url);
+    trackPageViews($url[5]);    
+
 
     $query = "SELECT id from posts where slug=:slug limit 1";
     $row = query_row($query, ['slug' => $slug]);
@@ -21,10 +24,14 @@
       $comment = $_POST['comment'];
       $query = "INSERT into comments (comment,post_id,user_id) values (:comment, :post_id, :user_id)";
       query($query, ['user_id' => $user_id, 'post_id' => $post_id, 'comment' => $comment]);
-    
     }
+
+
+
+
+
      
-      ?>
+  ?>
       
       
       

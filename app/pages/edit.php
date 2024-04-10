@@ -7,11 +7,15 @@ include __DIR__ . '/../core/init.php';
 if(session_status() == PHP_SESSION_ACTIVE){
 if($_SESSION['USER']){
   $user_image = $_SESSION['USER']['image'];
-
-
 }
 
-    $user_image= $_SESSION['USER']['image'];
+
+$url = $_SERVER['REQUEST_URI'];
+$url = explode("/",$url);
+trackPageViews($url[5]);
+
+
+$user_image= $_SESSION['USER']['image'];
 
  $id = $_GET['id'];
  $query = "select * from posts where id =:id limit 1";

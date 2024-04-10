@@ -2,6 +2,12 @@
 session_start();
 include __DIR__ . "/../core/init.php";
 
+
+    $url = $_SERVER['REQUEST_URI'];
+    $url = explode("/",$url);
+    trackPageViews($url[5]);
+
+
   if(!logged_in() || $_SESSION['USER']['role'] != 'admin'){
     redirect_login();
   }
@@ -152,6 +158,22 @@ elseif($section == "categories"){
             <a class="nav-link <?=$section== 'posts' ? 'active' : '' ?>" aria-current="page" href="<?=ROOT?>pages/admin.php?section=posts">
              <i class="bi bi-file-post"></i>
                 Posts
+            </a>
+          </li>
+
+
+          <li class="nav-item">
+            <a class="nav-link <?=$section== 'searchTerms' ? 'active' : '' ?>" aria-current="page" href="<?=ROOT?>pages/admin.php?section=searchTerms">
+             <i class="bi bi-file-post"></i>
+                Search Term Data
+            </a>
+          </li>
+         
+
+          <li class="nav-item">
+            <a class="nav-link <?=$section== 'adminViewReport' ? 'active' : '' ?>" aria-current="page" href="<?=ROOT?>pages/admin.php?section=adminViewReport">
+             <i class="bi bi-file-post"></i>
+                Admin View R
             </a>
           </li>
          

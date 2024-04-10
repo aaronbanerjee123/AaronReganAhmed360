@@ -3,6 +3,13 @@ session_start();
 
 $errors = [];
 include __DIR__ . '/../core/init.php';
+
+$url = $_SERVER['REQUEST_URI'];
+$url = explode("/",$url);
+trackPageViews($url[5]);
+
+
+
 if (!empty($_POST)) {
     // Your PHP login logic here
     // I'm assuming you have the necessary functions like `query`, `authenticate`, and `redirect_admin` defined elsewhere

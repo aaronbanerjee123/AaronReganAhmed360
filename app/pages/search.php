@@ -5,10 +5,13 @@ include __DIR__ . '/../core/init.php';
 if(session_status() == PHP_SESSION_ACTIVE){
   if($_SESSION['USER']){
     $user_image = $_SESSION['USER']['image'];
-
-
     }
   }
+
+  $url = $_SERVER['REQUEST_URI'];
+  $url = explode("/",$url);
+  trackPageViews($url[5]);    
+
 ?>
 
 
@@ -132,6 +135,22 @@ if(session_status() == PHP_SESSION_ACTIVE){
             $rows = query($query, ['find'=> $find]);
           }   
 
+          $query = "SELECT * from searchterms WHERE search_term like :find";
+          $rows_search = query($query, ['find' => $_GET['find']]);
+
+          if(!is_array($rows_search)){
+            $query = "INSERT IGNORE INTO searchterms (search_term, times_searched) VALUES (:search_term, :times_searched)";
+            $data['times_searched'] = 1;
+            $data['search_term'] = $_GET['find'];
+            query($query,$data);
+          }else{
+            $query = "UPDATE searchterms SET times_searched = times_searched + 1 WHERE search_term LIKE :find";
+            $data['find'] = $_GET['find'];
+            query($query,$data);
+          }
+
+    
+  
 
           if(!empty($rows)){
             foreach($rows as $row){
