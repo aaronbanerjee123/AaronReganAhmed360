@@ -6,7 +6,7 @@ describe('server side tests', () => {
       cy.visit('https://cosc360.ok.ubc.ca/aaron202/app/pages/login.php');
   
 
-      cy.get('#email').type('test@gmail.com');
+      cy.get('#email').type('cypress@gmail.com');
       cy.get('#password').type('testtest');
 
       cy.get('button[type="submit"]').click();
@@ -34,7 +34,7 @@ describe('server side tests', () => {
       cy.visit('https://cosc360.ok.ubc.ca/aaron202/app/pages/login.php');
 
     
-      cy.get('#email').type('test@gmail.com');
+      cy.get('#email').type('cypress@gmail.com');
       cy.get('#password').type('testtest');
       cy.get('button[type="submit"]').click();
 

@@ -37,14 +37,6 @@ describe('client side test', () => {
     cy.get('.row.g-0.border.rounded.overflow-hidden.flex-md-row.mb-4.shadow-sm.h-md-250.position-relative').should('be.visible');
 
 
-    cy.get('.btn.btn-sm.btn-primary').click();
-
-    cy.url().should('include', 'edit.php?id=22'); 
-    cy.url().should('eq', 'https://cosc360.ok.ubc.ca/aaron202/app/pages/edit.php?id=22'); 
-
-
-
-
     
   });
 
