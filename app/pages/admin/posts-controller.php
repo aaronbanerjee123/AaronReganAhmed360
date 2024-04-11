@@ -155,6 +155,7 @@ if($action == 'add'){
             unlink($row['image']);
         }
 
+
   
         redirect_admin_posts();
   

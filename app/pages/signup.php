@@ -1,6 +1,6 @@
 <?php
+session_start();
 include __DIR__ . '/../core/init.php';
-
 
 
   $url = $_SERVER['REQUEST_URI'];

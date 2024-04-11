@@ -428,7 +428,7 @@ if(!function_exists('trackPageViews')){
         $query = "SELECT * from pageViews WHERE page like :page";
         $rows_search = query($query, ['page' => $page]);
 
-        $user = $_SESSION['USER']['username'] ? $_SESSION['USER']['username'] : 'Guest';
+        $user = isset($_SESSION['USER']) ? $_SESSION['USER']['username'] : 'Guest';
         
 
           $query = "INSERT INTO pageViews (page, user) VALUES (:page, :user)";

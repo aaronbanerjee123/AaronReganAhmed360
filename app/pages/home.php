@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(E_ALL & ~E_WARNING);
 
 include __DIR__ . '/../core/init.php';
 
@@ -137,7 +138,7 @@ include __DIR__ . '/../core/init.php';
   
         <?php 
 
-        $query = "SELECT post_title, COUNT(*) as times_visited from post_views GROUP BY post_title ORDER by times_visited DESC LIMIT 3";
+        $query = "SELECT post_title, COUNT(*) as times_visited from post_views join posts on post_views.post_title = posts.slug GROUP BY post_title ORDER by times_visited DESC LIMIT 3";
         $postData = query($query);
         
       if($postData && !empty($postData)){
