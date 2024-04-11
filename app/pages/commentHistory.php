@@ -1,18 +1,23 @@
-<?php
+<?php 
 session_start();
+
 include __DIR__ . '/../core/init.php';
 
 if(session_status() == PHP_SESSION_ACTIVE){
-  if($_SESSION['USER']){
-    $user_image = $_SESSION['USER']['image'];
-    }
-  }
+if($_SESSION['USER']){
+  $user_image = $_SESSION['USER']['image'];
 
-  $url = $_SERVER['REQUEST_URI'];
-  $url = explode("/",$url);
-  trackPageViews($url[5]);    
+}else{
+    redirect_login();
+}
 
+$query = "SELECT * from comments join posts where posts.id = comments.post_id and comments.user_id like :user_id";
+$rows = query($query, ['user_id' => $_SESSION['USER']['id']]);
+
+
+}
 ?>
+
 
 
 
@@ -23,7 +28,7 @@ if(session_status() == PHP_SESSION_ACTIVE){
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link href = "../public/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+  
   <style>
   header{
     background-color: #7F95D1; /* Change the background color */
@@ -51,7 +56,7 @@ if(session_status() == PHP_SESSION_ACTIVE){
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
       
       
-      <a href="<?=ROOT?>pages/home.php" class="nav-link px-2 link-dark" style="font-size: 24px;">InSightInk</a>
+      <a href="<?=ROOT?>/pages/home.php" class="nav-link px-2 link-dark" style="font-size: 24px;">InSightInk</a>
 
 
 
@@ -65,7 +70,7 @@ if(session_status() == PHP_SESSION_ACTIVE){
             <?php } ?>
         </ul>
 
-        <form class="row align-items-center mb-3 mb-lg-0 me-lg-3" role="search" action="<?=ROOT?>pages/search.php">
+        <form class="row align-items-center mb-3 mb-lg-0 me-lg-3" role="search" action="<?=ROOT?>/pages/search.php">
             <div class="col-md-auto">
                 <input type="search" name="find" class="form-control" placeholder="Search..." aria-label="Search">
             </div>
@@ -84,12 +89,12 @@ if(session_status() == PHP_SESSION_ACTIVE){
                 </a>
           <ul class="dropdown-menu text-small">
           <?php if($_SESSION['USER']['role'] == 'admin'){?>
-                   <li><a class="dropdown-item" href="<?=ROOT?>pages/admin.php">Admin</a></li>
-                <?php } ?>              
-             <li><a class="dropdown-item" href="<?=ROOT?>pages/settings.php">Settings</a></li>
-             <li><a class="dropdown-item" href="<?=ROOT?>pages/commentHistory.php">Comment History</a></li>
+              <li><a class="dropdown-item" href="<?=ROOT?>pages/admin.php">Admin</a></li>
+             <?php } ?>               
+            <li><a class="dropdown-item" href="<?=ROOT?>pages/settings.php">Settings</a></li>
+            <li><a class="dropdown-item" href="<?=ROOT?>pages/commentHistory.php">Comment History</a></li>
 
-             <li><hr class="dropdown-divider"></li>
+            <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="<?=ROOT?>pages/logout.php">Sign out</a></li>
           </ul>
         </div>
@@ -97,6 +102,11 @@ if(session_status() == PHP_SESSION_ACTIVE){
       </div>
     </div>
   </header>
+
+
+
+
+
 
   <link rel="stylesheet" href="<?=ROOT?>public/assets/slider/ism/css/my-slider.css"/>
   <script src="<?=ROOT?>public/assets/slider/ism/js/ism-2.2.min.js"></script>
@@ -122,55 +132,33 @@ if(session_status() == PHP_SESSION_ACTIVE){
     </li>
   </ol>
 </div>
-  <!-- end slider -->
 
     <main class="p-2">
-        <h3 class="mx-4">Search</h3>
+        <h3 class="mx-4">My Comment History</h3>
 
- <div class="row my-2">
-        <?php 
-          $find = $_GET['find'] ?? null;
-
-          if($find){
-            $find = "%$find%";
-            $query = "select posts.*, categories.category from posts join categories on posts.category_id= categories.id join users on posts.user_id = users.id where posts.title like :find or categories.category like :find or users.username like :find order by posts.id desc limit 6";
-            $rows = query($query, ['find'=> $find]);
-          }   
-
-          $query = "SELECT * from searchterms WHERE search_term like :find";
-          $rows_search = query($query, ['find' => $_GET['find']]);
-
-          if(!is_array($rows_search)){
-            $query = "INSERT IGNORE INTO searchterms (search_term, times_searched) VALUES (:search_term, :times_searched)";
-            $data['times_searched'] = 1;
-            $data['search_term'] = $_GET['find'];
-            query($query,$data);
-          }else{
-            $query = "UPDATE searchterms SET times_searched = times_searched + 1 WHERE search_term LIKE :find";
-            $data['find'] = $_GET['find'];
-            query($query,$data);
-          }
-
-    
-  
-
-          if(!empty($rows)){
-            foreach($rows as $row){
-              include 'includes/post-card.php';
-            }
-          }else{
-             include 'notFound.php';
-          }
-          
-        ?>
-   
-
-  </div>
+      <?php if($rows): ?>
+                  <div class="row">
+                      <?php foreach($rows as $row): ?>
+                        <div class="form-group m-1" style= "border: 2px solid gray;  border-radius: 4px">
+                        <h7 style = "color: gray">@<?=$_SESSION['USER']['username']?></h7>
+                        <h6 ><?=$row['comment']?></h6>
+                        <h6 ><?=$row['date']?></h6>
+                        <h6 >Post Title: <?=$row['title']?></h6>
 
 
-    </main>
+                    </div>  
 
+                      <?php endforeach; ?>
+                  </div>
+              <?php else: ?>
+                  <div class="text-center">
+                      Looks like you have no comments
+                  </div>
+      <?php endif; ?>
 
+</main>
     <script src="<?=ROOT?>public/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
+
+

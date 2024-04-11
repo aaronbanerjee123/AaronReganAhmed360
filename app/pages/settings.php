@@ -12,7 +12,7 @@
     $user_image = $_SESSION['USER']['image'];
   
     echo $id;
-    
+
     $url = $_SERVER['REQUEST_URI'];
     $url = explode("/",$url);
     trackPageViews($url[5]);    
@@ -186,7 +186,9 @@
                    <li><a class="dropdown-item" href="<?=ROOT?>pages/admin.php">Admin</a></li>
                 <?php } ?>                 
                   <li><a class="dropdown-item" href="<?=ROOT?>pages/settings.php">Settings</a></li>
-                <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="<?=ROOT?>pages/commentHistory.php">Comment History</a></li>
+
+                  <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="<?=ROOT?>pages/logout.php">Sign out</a></li>
               </ul>
             </div>
