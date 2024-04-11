@@ -140,8 +140,7 @@ include __DIR__ . '/../core/init.php';
         $query = "SELECT post_title, COUNT(*) as times_visited from post_views GROUP BY post_title ORDER by times_visited DESC LIMIT 3";
         $postData = query($query);
         
-        print_r($postData);
-
+      if($postData && !empty($postData)){
        foreach($postData as $data){
          $query = "SELECT posts.*,categories.category from posts join categories on posts.category_id= categories.id and posts.slug = :slug order by posts.id desc limit 1";
          $rows= query($query,['slug' => $data['post_title']]);
@@ -149,6 +148,7 @@ include __DIR__ . '/../core/init.php';
          include 'includes/post-card.php';
 
        }
+      }
 
 ?>
   
@@ -178,6 +178,28 @@ include __DIR__ . '/../core/init.php';
     <script src="<?=ROOT?>public/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     
     <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.read-more').forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            let card = button.closest('.border');
+            let truncatedContent = card.querySelector('#truncatedContent');
+            let fullContent = card.querySelector('.full-content');
+
+            if (truncatedContent.style.display === 'none') {
+                truncatedContent.style.display = 'block';
+                fullContent.style.display = 'none';
+                button.textContent = 'Read more';
+            } else {
+                truncatedContent.style.display = 'none';
+                fullContent.style.display = 'block';
+                button.textContent = 'Read less';
+            }
+        });
+    });
+});
 
 function formatDateTime(date) {
     let year = date.getFullYear();
@@ -237,6 +259,11 @@ $(document).ready(function() {
     // Call the function to check for updates every 5 seconds (adjust as needed)
     setInterval(checkForUpdates, 5000); // 5000 milliseconds = 5 seconds
 });
+
+   
+    
+
+
 
  </script>
 

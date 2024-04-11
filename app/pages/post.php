@@ -248,6 +248,8 @@
     </script>
    
    <script>
+
+
     function formatDateTime(date) {
     let year = date.getFullYear();
     let month = String(date.getMonth() + 1).padStart(2, '0');
@@ -301,6 +303,10 @@
         // Set interval to fetch comments every 4 seconds
         setInterval(fetchComments, 10000); // 4000 milliseconds = 4 seconds
     });
+
+
+    
+
      </script>
   
   

@@ -6,7 +6,19 @@
                 <h3 class="mb-0"><?=$row['title']?></h3>
             </a>
             <div class="mb-1 text-muted"><?=date("Y-m-d",strtotime($row['date']))?></div>
-            <p class="card-text mb-auto"><?=substr($row['content'],0,200)?></p>
+            <!-- Truncated content -->
+            <p class="card-text mb-auto" id="truncatedContent"><?=substr($row['content'],0,50)?></p>
+            <!-- Read more button -->
+           
+            <!-- Full content (initially hidden) -->
+            <div class="full-content" style="display: none;">
+                <p><?= $row['content'] ?></p>
+            </div>
+
+            <?php if(strlen($row['content']) > 50) { ?>
+                <a class="btn btn-sm btn-primary read-more">Read more</a>
+            <?php } ?>
+
         </div>
         <div class="col-lg-5 col-12 d-lg-block" style="max-height: 150px;">
             <img src="<?=ROOT?>pages/<?=$row['image']?>" class="bd-placeholder-img w-100" height="250" style="object-fit:cover;" />
@@ -14,14 +26,6 @@
         <!-- Edit Button -->
         <?php if($row['user_id'] == user('id')) { ?>
             <a href="<?=ROOT?>pages/edit.php?id=<?=$row['id']?>" class="btn btn-sm btn-primary position-absolute bottom-0 end-0 mt-5" style="width:20%;">Edit</a>
-          <?php } ?>
-
-        </div>
+        <?php } ?>
+    </div>
 </div>
-
-
-
-
-
-
-

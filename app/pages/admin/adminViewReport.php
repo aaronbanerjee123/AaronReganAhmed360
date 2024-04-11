@@ -48,6 +48,7 @@ ORDER BY recent_visit.user DESC";
 $filteredVisitData = query($query);
 
 
+
 $query = "SELECT post_title, COUNT(*) as times_visited from post_views GROUP BY post_title ORDER by times_visited DESC";
 $postData = query($query);
 
@@ -100,7 +101,7 @@ if ($postAddedData !== false && !empty($postAddedData)) {
         const myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: 'Number of Posts',
+                labels: 'Number of Users',
                 datasets: [{
                     label: 'Number of Registered Users',
                     data: <?php echo $numberOfUsersJson; ?>, // Replace this data with your own
@@ -146,8 +147,17 @@ if ($postAddedData !== false && !empty($postAddedData)) {
             options: {
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                       
+                    },
+                    x: {
+                        beginAtZero:true,
+                        text:"Date",
+                        font: {
+                            size: 20
+                        }
                     }
+
                 },
                 plugins: {
                     title: {
@@ -215,8 +225,20 @@ const commentChart = new Chart(ctx4, {
     options: {
         scales: {
             y: {
-                beginAtZero: true
+                beginAtZero: true,
+                text:"Number of Comments",
+                        font: {
+                            size: 20
+                        }
+            },
+            x: {
+                beginAtZero: true,
+                text:"Number of Comments",
+                font: {
+                    size: 20
+                }
             }
+
         },
         plugins: {
             title: {
@@ -280,6 +302,8 @@ const postChart = new Chart(ctx6, {
         </tr>
     </thead>
     <tbody>
+    <?php if ($filteredPageData !== null && !empty($filteredPageData)): ?>
+
         <?php foreach ($filteredPageData as $row): ?>
             <tr>
                 <td><?php echo $row['page']; ?></td>
@@ -288,6 +312,7 @@ const postChart = new Chart(ctx6, {
             </tr>
         <?php endforeach; ?>
     </tbody>
+    <?php endif;?>
 </table>
 
 <table class="table table-striped">
@@ -300,6 +325,8 @@ const postChart = new Chart(ctx6, {
         </tr>
     </thead>
     <tbody>
+    <?php if ($filteredVisitData !== null && !empty($filteredVisitData)): ?>
+
         <?php foreach ($filteredVisitData as $row): ?>
             <tr>
                 <td><?php echo $row['date']; ?></td>
@@ -309,6 +336,8 @@ const postChart = new Chart(ctx6, {
             </tr>
         <?php endforeach; ?>
     </tbody>
+    <?php endif; ?>
+
 </table>
 
 <table class="table table-striped">
@@ -322,6 +351,7 @@ const postChart = new Chart(ctx6, {
         </tr>
     </thead>
     <tbody>
+    <?php if ($postData !== null && !empty($postData)): ?>
         <?php foreach ($postData as $row): ?>
             <tr>
                 <td><?php echo $row['post_title']; ?></td>
@@ -330,6 +360,8 @@ const postChart = new Chart(ctx6, {
             </tr>
         <?php endforeach; ?>
     </tbody>
+    <?php endif; ?>
+
 </table>
 
 
