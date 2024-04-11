@@ -2,13 +2,12 @@
     session_start(); 
     include __DIR__ . '/../core/init.php';
     
+
+    $slug = $_GET['slug'];
+
     if($_SESSION['USER']){
       $user_image = $_SESSION['USER']['image'];
       $user_id = $_SESSION['USER']['id'];
-      $slug = $_GET['slug'];
-      
-
-
       $query = "INSERT INTO post_views (post_title,user_id) VALUES (:post_title,:user_id)";
       query($query, ['post_title' => $slug, 'user_id' => $user_id]);
 
@@ -31,6 +30,8 @@
       query($query, ['user_id' => $user_id, 'post_id' => $post_id, 'comment' => $comment]);
     
       
+      $query = "INSERT INTO commentData (post_title) VALUES (:post_title)";
+      query($query, ['post_title' => $slug]);
     
     }
 

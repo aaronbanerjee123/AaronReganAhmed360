@@ -52,16 +52,49 @@ $query = "SELECT post_title, COUNT(*) as times_visited from post_views GROUP BY 
 $postData = query($query);
 
 
-print_r($postData);
+$query = "SELECT DATE(date) AS comment_day, COUNT(*) AS comment_count
+FROM commentData
+GROUP BY DATE(comment_day)";
+
+$postCommentData = query($query);
+
+$comment_day = json_encode([date("Y-m-d")]);
+$comment_count = json_encode([0]);
+
+if ($postCommentData !== false && !empty($postCommentData)) {
+    $comment_day = json_encode(array_column($postCommentData, 'comment_day'));
+    $comment_count = json_encode(array_column($postCommentData, 'comment_count'));
+}
+
+
+$query = "SELECT DATE(date) AS comment_day, COUNT(*) AS comment_count
+FROM postAddedData
+GROUP BY DATE(comment_day)";
+
+$postAddedData = query($query);
+$comment_day_posts = json_encode([date("Y-m-d")]);
+$comment_count_posts = json_encode([0]);
+
+if ($postAddedData !== false && !empty($postAddedData)) {
+    $comment_day_posts= json_encode(array_column($postAddedData, 'comment_day'));
+    $comment_count_posts = json_encode(array_column($postAddedData, 'comment_count'));
+}
+
 ?>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 <canvas id="registeredUsers"></canvas>
+<canvas id="commentData"></canvas>
+<canvas id="postData"></canvas>
+
+
+
 <canvas id="postCount"></canvas>
 <canvas id="postCountFiltered"></canvas>
 <table id="pageViews"></table>
+
 <script>
         const ctx = document.getElementById('registeredUsers').getContext('2d');
         const myChart = new Chart(ctx, {
@@ -164,18 +197,86 @@ print_r($postData);
         <?php endif;?>
 
 
+
+
+const ctx4 = document.getElementById('commentData').getContext('2d');
+const commentChart = new Chart(ctx4, {
+    type: 'line',
+    data: {
+        labels: <?php echo $comment_day; ?>,
+        datasets: [{
+            label: 'Number of Comments on specific day',
+            data: <?php echo $comment_count; ?>, // Replace this data with your own
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        plugins: {
+            title: {
+                display: true,
+                text: 'Number of Comments Per Day', // Change the title here
+                font: {
+                    size: 20
+                }
+            }
+        }
+    }
+});
+
+
+const ctx6 = document.getElementById('postData').getContext('2d');
+const postChart = new Chart(ctx6, {
+    type: 'line',
+    data: {
+        labels: <?php echo $comment_day_posts; ?>,
+        datasets: [{
+            label: 'Number of Posts on specific day',
+            data: <?php echo $comment_count_posts; ?>, // Replace this data with your own
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        plugins: {
+            title: {
+                display: true,
+                text: 'Number of Posts Per Day', // Change the title here
+                font: {
+                    size: 20
+                }
+            }
+        }
+    }
+});
+
+
         
 </script>
 
 <button class="btn btn-success filter">Filter</button>
 <button class="btn btn-success unfilter">Remove Filter</button>
 
+
+
+
 <table class="table table-striped">
     <thead>
         <tr>
             <th>Page</th>
             <th>Total Visits</th>
-            <th>Link to Post</th>
         </tr>
     </thead>
     <tbody>

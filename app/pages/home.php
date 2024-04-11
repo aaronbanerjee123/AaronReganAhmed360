@@ -129,11 +129,31 @@ include __DIR__ . '/../core/init.php';
   <!-- end slider -->
 
     <main class="p-2">
-        <h3 class="mx-4">Featured</h3>
+        <h3 class="mx-4">Trending</h3>
 
- <div class="row my-2" id="blogs-container">
+ <div class="row my-2" id="blogs-container-trending">
   
         <?php 
+
+        $query = "SELECT post_title, COUNT(*) as times_visited from post_views GROUP BY post_title ORDER by times_visited DESC LIMIT 3";
+        $postData = query($query);
+        
+        print_r($postData);
+
+       foreach($postData as $data){
+         $query = "SELECT posts.*,categories.category from posts join categories on posts.category_id= categories.id and posts.slug = :slug order by posts.id desc limit 1";
+         $rows= query($query,['slug' => $data['post_title']]);
+         $row = $rows[0];
+         include 'includes/post-card.php';
+
+       }
+
+?>
+  
+  </div>
+  <h3 class="mx-4">All Blogs</h3>
+  <div class="row my-2" id="blogs-container">
+<?php
 
         $query = "select posts.*,categories.category from posts join categories on posts.category_id= categories.id order by posts.id desc";
         $rows = query($query);

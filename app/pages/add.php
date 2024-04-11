@@ -66,6 +66,11 @@ if(session_status() == PHP_SESSION_ACTIVE){
                   $data['image'] = $destination;
                   $query = "insert into posts (title, content, category_id, slug, user_id, image) values (:title, :content, :category_id, :slug, :user_id, :image)";
                   query($query, $data);
+
+
+                  $query = "INSERT INTO postAddedData (post_title) VALUES (:post_title)";
+                  query($query,['post_title'=> $data['slug']]);
+
                   redirect_home();
               }
           }
