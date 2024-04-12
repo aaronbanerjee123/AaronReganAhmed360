@@ -2,13 +2,18 @@
     <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col p-4 d-flex flex-column position-static">
             <strong class="d-inline-block mb-2 text-primary"><?=$row['category']?></strong>
-            <a href="<?=ROOT?>pages/post.php?slug=<?=$row['slug']?>" style="text-decoration: none; color: inherit;">
-                <h3 class="mb-0"><?=$row['title']?></h3>
-            </a>
+            
 
         <div class="col-lg-5 col-12 d-lg-block" style="max-height: 100px;">
             <img src="<?=ROOT?>pages/<?=$row['image']?>" class="bd-placeholder-img w-100" height="250" style="object-fit:cover;" />
         </div>
+            
+            
+            
+            <a href="<?=ROOT?>pages/post.php?slug=<?=$row['slug']?>" style="text-decoration: none; color: inherit;">
+                <h3 class="mb-0"><?=$row['title']?></h3>
+            </a>
+
 
 
 
