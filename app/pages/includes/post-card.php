@@ -16,7 +16,7 @@
             </div>
 
             <?php if(strlen($row['content']) > 50) { ?>
-                <a class="btn btn-sm btn-primary read-more">Read more</a>
+                <a class="btn btn-sm btn-primary read-more" style="width: 50px; height: 30px;">Read more</a>
             <?php } ?>
 
         </div>
