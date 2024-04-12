@@ -1,5 +1,5 @@
 <div class="col-md-6">
-    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" style="width: 100%; height: 250px;">
+    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm position-relative" style="width: 100%;">
         <!-- Image Column -->
         <div class="col-lg-5 col-12 d-lg-block">
             <img src="<?=ROOT?>pages/<?=$row['image']?>" class="bd-placeholder-img w-100" style="height: 100%; object-fit: cover; width:100px; height:200px;" />
@@ -28,7 +28,7 @@
 
             <!-- Full content (initially hidden) -->
             <div class="full-content" style="display: none;">
-                <p><?=substr($row['content'],0,80)?></p>
+                <p><?= $row['content'] ?></p>
             </div>
 
             <!-- Read more button -->
