@@ -50,7 +50,7 @@ if(!function_exists('esc')){
 
 if(!function_exists('redirect_login')){
         function redirect_login(){
-        header('Location: https://localhost/requirements/AaronReganAhmed360/app/pages/login.php');
+        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/login.php');
         die;
     }
 }
@@ -58,7 +58,7 @@ if(!function_exists('redirect_login')){
 
 if(!function_exists('redirect_home')){
     function redirect_home(){
-        header('Location: https://localhost/requirements/AaronReganAhmed360/app/pages/home.php');
+        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/home.php');
         die;
     }
 
@@ -67,14 +67,14 @@ if(!function_exists('redirect_home')){
 
 if(!function_exists('redirect_admin')){
     function redirect_admin(){
-        header('Location: https://localhost/requirements/AaronReganAhmed360/app/pages/admin.php');
+        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/admin.php');
         die;
     }
 }
 
 if(!function_exists('redirect_admin_users')){
     function redirect_admin_users(){
-        header('Location: https://localhost/requirements/AaronReganAhmed360/app/pages/admin.php?section=users');
+        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/admin.php?section=users');
         die;
     }
     
@@ -82,14 +82,14 @@ if(!function_exists('redirect_admin_users')){
 
 if(!function_exists('redirect_admin_categories')){
     function redirect_admin_categories(){
-        header('Location: https://localhost/requirements/AaronReganAhmed360/app/pages/admin.php?section=categories');
+        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/admin.php?section=categories');
         die;
     }
     
 }
 if(!function_exists('redirect_admin_posts')){
     function redirect_admin_posts(){
-        header('Location: https://localhost/requirements/AaronReganAhmed360/app/pages/admin.php?section=posts');
+        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/admin.php?section=posts');
 
         die;
     }
@@ -97,7 +97,7 @@ if(!function_exists('redirect_admin_posts')){
 
 if(!function_exists('redirect_admin_myblogs')){
     function redirect_admin_myblogs(){
-        header('Location: https://localhost/requirements/AaronReganAhmed360/app/pages/myblogs.php');
+        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/myblogs.php');
 
         die;
     }
@@ -105,7 +105,7 @@ if(!function_exists('redirect_admin_myblogs')){
 
 if(!function_exists('redirect_settings')){
     function redirect_settings(){
-        header('Location: https://localhost/requirements/AaronReganAhmed360/app/pages/settings.php');
+        header('Location: https://cosc360.ok.ubc.ca/aaron202/app/pages/settings.php');
         die;
     }
 }
