@@ -94,13 +94,29 @@ include __DIR__ . '/../core/init.php';
             <li><a class="dropdown-item" href="<?=ROOT?>pages/commentHistory.php">Comment History</a></li>
 
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="<?=ROOT?>pages/logout.php">Sign out</a></li>
+            <li><a class="dropdown-item" href="#" onclick="confirmSignOut()">Sign out</a></li>
           </ul>
         </div>
         <?php } ?>
       </div>
     </div>
   </header>
+
+
+  <div id="confirmationModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>Are you sure you want to sign out?</p>
+        <div class="text-center">
+          <!-- Call signOut() function when "Yes" is clicked -->
+          <button id="yesButton" class="btn btn-danger" onclick="signOut()">Yes</button>
+          <button id="noButton" class="btn btn-secondary ms-2" data-bs-dismiss="modal">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -262,11 +278,25 @@ $(document).ready(function() {
 });
 
    
-    
-
-
+  
 
  </script>
+
+
+
+<script>
+
+  function confirmSignOut() {
+
+    $('#confirmationModal').modal('show');
+  }
+
+
+  function signOut() {
+
+    window.location.href = '<?=ROOT?>pages/logout.php';
+  }
+</script>
 
   </body>
   
