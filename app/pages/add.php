@@ -17,7 +17,7 @@ if(session_status() == PHP_SESSION_ACTIVE){
             $url = $_SERVER['REQUEST_URI'];
             $url = explode("/",$url);
             print_r($url);
-            trackPageViews($url[5]);
+            trackPageViews($url[4]);
             
       
           if(!$_SESSION['USER']){
