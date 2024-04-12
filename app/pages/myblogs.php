@@ -5,7 +5,9 @@ include __DIR__ . '/../core/init.php';
 
 $url = $_SERVER['REQUEST_URI'];
 $url = explode("/",$url);
-trackPageViews($url[5]);
+trackPageViews($url[4]);
+ print_r($url);
+
 
 if(session_status() == PHP_SESSION_ACTIVE){
 

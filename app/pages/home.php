@@ -1,6 +1,6 @@
 <?php
 session_start();
-error_reporting(E_ALL & ~E_WARNING);
+// error_reporting(E_ALL & ~E_WARNING);
 
 include __DIR__ . '/../core/init.php';
 
@@ -10,8 +10,8 @@ include __DIR__ . '/../core/init.php';
 
   $url = $_SERVER['REQUEST_URI'];
   $url = explode("/",$url);
-  trackPageViews($url[5]);
-  print_r($url);
+  trackPageViews($url[4]);
+
  
 ?>
 
@@ -272,4 +272,5 @@ $(document).ready(function() {
   
 
 </html>
+<?php   print_r($url);?>
 

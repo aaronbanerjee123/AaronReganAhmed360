@@ -16,7 +16,7 @@
 
     $url = $_SERVER['REQUEST_URI'];
     $url = explode("/",$url);
-    trackPageViews($url[5]);    
+    trackPageViews($url[4]);    
 
 
     $query = "SELECT id from posts where slug=:slug limit 1";

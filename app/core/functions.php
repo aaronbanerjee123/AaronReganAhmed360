@@ -1,4 +1,5 @@
 <?php
+session_start();
 if(!function_exists('query')){
     function query(string $query, array $data = []){
     $string = "mysql:hostname=".DBHOST.";dbname=". DBNAME;
@@ -395,8 +396,6 @@ if(!function_exists('create_tables')){
     
 
 
-
-
         $query = "create table if not exists postAddedData(
             id int primary key auto_increment,
             post_title text null,
@@ -414,10 +413,10 @@ if(!function_exists('create_tables')){
             echo $e;
         }
      }
-     create_tables();
 
     
 }
+create_tables();
 
 if(!function_exists('trackPageViews')){
         function trackPageViews($page){

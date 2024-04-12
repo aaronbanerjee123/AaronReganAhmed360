@@ -12,7 +12,7 @@ if($_SESSION['USER']){
 
 $url = $_SERVER['REQUEST_URI'];
 $url = explode("/",$url);
-trackPageViews($url[5]);
+trackPageViews($url[4]);
 
 
 $user_image= $_SESSION['USER']['image'];

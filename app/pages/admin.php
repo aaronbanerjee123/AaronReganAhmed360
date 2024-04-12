@@ -5,7 +5,7 @@ include __DIR__ . "/../core/init.php";
 
     $url = $_SERVER['REQUEST_URI'];
     $url = explode("/",$url);
-    trackPageViews($url[5]);
+    trackPageViews($url[4]);
 
 
   if(!logged_in() || $_SESSION['USER']['role'] != 'admin'){
