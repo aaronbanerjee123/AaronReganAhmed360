@@ -11,9 +11,7 @@
             <!-- Read more button -->
            
             <!-- Full content (initially hidden) -->
-        <div class="col-lg-5 col-12 d-lg-block" style="max-height: 100px;">
-            <img src="<?=ROOT?>pages/<?=$row['image']?>" class="bd-placeholder-img w-100" height="250" style="object-fit:cover;" />
-        </div>
+       
 
             <div class="full-content" style="display: none;">
                 <p><?= $row['content'] ?></p>
@@ -24,6 +22,10 @@
                 <a href="#" class="read-more" style="width:75px; display: inline-block; background-color: #007bff; color: #fff; border: none; padding: 8px 20px; text-align: center; text-decoration: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s ease;">Read more</a>
              <?php } ?>
             <?php } ?>
+
+        <div class="col-lg-5 col-12 d-lg-block" style="max-height: 100px;">
+            <img src="<?=ROOT?>pages/<?=$row['image']?>" class="bd-placeholder-img w-100" height="250" style="object-fit:cover;" />
+        </div>
 
         </div>
        
