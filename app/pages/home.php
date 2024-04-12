@@ -109,7 +109,7 @@ include __DIR__ . '/../core/init.php';
       <div class="modal-body">
         <p>Are you sure you want to sign out?</p>
         <div class="text-center">
-          <!-- Call signOut() function when "Yes" is clicked -->
+        
           <button id="yesButton" class="btn btn-danger" onclick="signOut()">Yes</button>
           <button id="noButton" class="btn btn-secondary ms-2" data-bs-dismiss="modal">No</button>
         </div>

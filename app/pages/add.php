@@ -157,7 +157,7 @@ if(session_status() == PHP_SESSION_ACTIVE){
               <li><a class="dropdown-item" href="<?=ROOT?>pages/settings.php">Settings</a></li>
               <li><a class="dropdown-item" href="<?=ROOT?>pages/commentHistory.php">Comment History</a></li>
               <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="<?=ROOT?>pages/logout.php">Sign out</a></li>
+              <li><a class="dropdown-item" href="#" onclick="confirmSignOut()">Sign out</a></li>
           </ul>
         </div>
         <?php } ?>
@@ -165,6 +165,22 @@ if(session_status() == PHP_SESSION_ACTIVE){
     </div>
   </header>
 
+  <div id="confirmationModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>Are you sure you want to sign out?</p>
+        <div class="text-center">
+        
+          <button id="yesButton" class="btn btn-danger" onclick="signOut()">Yes</button>
+          <button id="noButton" class="btn btn-secondary ms-2" data-bs-dismiss="modal">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
 
   <link rel="stylesheet" href="<?=ROOT?>public/assets/slider/ism/css/my-slider.css"/>
   <script src="<?=ROOT?>public/assets/slider/ism/js/ism-2.2.min.js"></script>
@@ -261,5 +277,22 @@ if(session_status() == PHP_SESSION_ACTIVE){
             });
         });
     </script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+
+  function confirmSignOut() {
+
+    $('#confirmationModal').modal('show');
+  }
+
+
+  function signOut() {
+
+    window.location.href = '<?=ROOT?>pages/logout.php';
+  }
+</script>
+
 </body>
 </html>
