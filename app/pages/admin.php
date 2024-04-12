@@ -173,7 +173,7 @@ elseif($section == "categories"){
           <li class="nav-item">
             <a class="nav-link <?=$section== 'adminViewReport' ? 'active' : '' ?>" aria-current="page" href="<?=ROOT?>pages/admin.php?section=adminViewReport">
              <i class="bi bi-file-post"></i>
-                Admin View R
+                Admin View Report
             </a>
           </li>
          
