@@ -20,6 +20,8 @@ if(!empty($_POST['id'])) {
                     </a>
                     <div class="mb-1 text-muted">' . date("Y-m-d", strtotime($row['date'])) . '</div>
                     <p class="card-text mb-auto">' . substr($row['content'], 0, 200) . '</p>
+                    <p class="card-text mb-auto">'.($row['category']).'</p>
+
                     </div>
                     
                     <div class="col-lg-5 col-12 d-lg-block">
