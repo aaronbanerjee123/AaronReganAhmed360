@@ -356,7 +356,7 @@ const postChart = new Chart(ctx6, {
             <tr>
                 <td><?php echo $row['post_title']; ?></td>
                 <td><?php echo $row['times_visited']; ?></td>
-                <td><a href="https://localhost/requirements/AaronReganAhmed360/app/pages/post.php?slug=<?php echo $row['post_title']; ?>">View Post</a></td>
+                <td><a href="https:<?=ROOT?>app/pages/post.php?slug=<?php echo $row['post_title']; ?>">View Post</a></td>
             </tr>
         <?php endforeach; ?>
     </tbody>
