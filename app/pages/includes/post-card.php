@@ -1,12 +1,12 @@
 <div class="col-md-6">
-    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" style="width: 100%; height: 250px;">
         <!-- Image Column -->
         <div class="col-lg-5 col-12 d-lg-block">
-            <img src="<?=ROOT?>pages/<?=$row['image']?>" class="bd-placeholder-img w-100" style="max-height: 250px; object-fit: cover;" />
+            <img src="<?=ROOT?>pages/<?=$row['image']?>" class="bd-placeholder-img w-100" style="height: 100%; object-fit: cover; width:100px; height:100px;" />
         </div>
 
         <!-- Content Column -->
-        <div class="col p-4 d-flex flex-column position-static">
+        <div class="col p-4 d-flex flex-column position-static" style="width: calc(100% - 340px);">
             <!-- Category -->
             <strong class="d-inline-block mb-2 text-primary"><?=$row['category']?></strong>
             
@@ -34,7 +34,7 @@
 
         <!-- Edit Button -->
         <?php if($row['user_id'] == user('id')) { ?>
-            <a href="<?=ROOT?>pages/edit.php?id=<?=$row['id']?>" class="btn btn-sm btn-primary position-absolute bottom-0 end-0 mt-5" style="width:20%;">Edit</a>
+            <a href="<?=ROOT?>pages/edit.php?id=<?=$row['id']?>" class="btn btn-sm btn-primary position-absolute bottom-0 end-0 mt-5" style="width: 20%;">Edit</a>
         <?php } ?>
     </div>
 </div>
