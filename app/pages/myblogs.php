@@ -163,6 +163,30 @@ if(!$_SESSION['USER']){
 
 </main>
     <script src="<?=ROOT?>public/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.read-more').forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            let card = button.closest('.border');
+            let truncatedContent = card.querySelector('#truncatedContent');
+            let fullContent = card.querySelector('.full-content');
+
+            if (truncatedContent.style.display === 'none') {
+                truncatedContent.style.display = 'block';
+                fullContent.style.display = 'none';
+                button.textContent = 'Read more';
+            } else {
+                truncatedContent.style.display = 'none';
+                fullContent.style.display = 'block';
+                button.textContent = 'Read less';
+            }
+        });
+    });
+});
+</script>
   </body>
 </html>
 
