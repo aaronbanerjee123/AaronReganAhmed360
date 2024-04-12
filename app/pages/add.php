@@ -13,10 +13,12 @@ if(session_status() == PHP_SESSION_ACTIVE){
       
       }
 
-
+            echo $_SERVER['URI'];
             $url = $_SERVER['REQUEST_URI'];
             $url = explode("/",$url);
+            print_r($url);
             trackPageViews($url[5]);
+            
       
           if(!$_SESSION['USER']){
               redirect_login();

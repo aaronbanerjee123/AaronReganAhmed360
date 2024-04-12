@@ -300,7 +300,7 @@ if(!function_exists('create_tables')){
         $query = "SELECT * FROM categories";
         $rows = query($query);
 
-        if(count($rows) != 5){
+        if(is_array($rows) && count($rows) != 5){
             $query = "INSERT IGNORE INTO categories (category, disabled, slug) VALUES
             ('fitness', 0, 'fitness'),
             ('food', 0, 'food'),
@@ -364,11 +364,8 @@ if(!function_exists('create_tables')){
             post_title text null,
             user_id int,
             date timestamp default current_timestamp,
-
             key(post_title)
-            
-
-
+        
         )";
     
         $stm = $con->prepare($query); 
