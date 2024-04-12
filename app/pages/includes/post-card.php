@@ -5,6 +5,13 @@
             <a href="<?=ROOT?>pages/post.php?slug=<?=$row['slug']?>" style="text-decoration: none; color: inherit;">
                 <h3 class="mb-0"><?=$row['title']?></h3>
             </a>
+
+        <div class="col-lg-5 col-12 d-lg-block" style="max-height: 100px;">
+            <img src="<?=ROOT?>pages/<?=$row['image']?>" class="bd-placeholder-img w-100" height="250" style="object-fit:cover;" />
+        </div>
+
+
+
             <div class="mb-1 text-muted"><?=date("Y-m-d",strtotime($row['date']))?></div>
             <!-- Truncated content -->
             <p class="card-text mb-auto" id="truncatedContent"><?=substr($row['content'],0,50)?></p>
@@ -23,9 +30,7 @@
              <?php } ?>
             <?php } ?>
 
-        <div class="col-lg-5 col-12 d-lg-block" style="max-height: 100px;">
-            <img src="<?=ROOT?>pages/<?=$row['image']?>" class="bd-placeholder-img w-100" height="250" style="object-fit:cover;" />
-        </div>
+       
 
         </div>
        
