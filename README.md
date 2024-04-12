@@ -4,10 +4,20 @@ This document outlines additional functionality integrated into our web applicat
 
 ## Features
 
-### Tracking Post Clicks
+### User Comment History Tracking
 
-- **Frontend**: Utilizes JavaScript to attach event listeners to post elements. Upon clicking a post, an AJAX request is sent to the server carrying the post ID.
-- **Backend**: A PHP script (`record_click.php`) processes the AJAX request, recording each click in the `post_clicks` table in the database. This data is used to highlight the most clicked posts among all.
+This feature captures the users' comments across different blog posts and logs them with a timestamp. It lays the foundation for future functionalities where users can review their comment history and interact with other community members more effectively. 
+
+**Implementation**
+- `comments.php` here will handle the submission and retrival of comments. While, `comment_log.php` records the actions of the user related to the comments
+- AJAX is utilized to asynchronously load and display comments.
+
+### Display Most Clicked Post (HOT threads)
+
+Our platform now tracks the popularity of posts through user clicks. The most engaged post is featured on the homepage, highlighting trending discussions.
+
+- **Frontend**: Utilizes JavaScript to attach event listeners to post elements. Upon clicking a post, an AJAX request is sent to the server carrying the post ID. The homepage (`home.php`) uses AJAX to fetch and display the most clicked post
+- **Backend**: A PHP script (`record_click.php`) processes the AJAX request, recording each click in the `post_clicks` table in the database. `functions.php`: Contains `getMostClickedPost()`, which retrieves the most clicked post based on recorded data. This data is used to highlight the most clicked posts among all.
 
 ### Accessibility: Dark Theme
 
