@@ -348,7 +348,7 @@ if(!function_exists('create_tables')){
 
         $query = "create table if not exists searchterms(
             id int primary key auto_increment,
-            search_term text null,
+            search_term VARCHAR(255) null,
             times_searched int,
 
             key times_searched(times_searched),
@@ -362,7 +362,7 @@ if(!function_exists('create_tables')){
 
         $query = "create table if not exists post_views(
             id int primary key auto_increment,
-            post_title text null,
+            post_title VARCHAR(255) null,
             user_id int,
             date timestamp default current_timestamp,
             key(post_title)
@@ -375,8 +375,8 @@ if(!function_exists('create_tables')){
 
         $query = "create table if not exists pageViews(
             id int primary key auto_increment,
-            page text null,
-            user text null,
+            page VARCHAR(255) null,
+            user VARCHAR(255) null,
             date timestamp default current_timestamp,
             key(user)
 
@@ -414,7 +414,6 @@ if(!function_exists('create_tables')){
         }
      }
 
-    
 }
 create_tables();
 
