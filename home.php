@@ -1,0 +1,316 @@
+<?php
+session_start();
+
+include __DIR__ . '/../core/init.php';
+
+  if($_SESSION['USER']){
+    $user_image = $_SESSION['USER']['image'];
+
+    if (isset($_SESSION['login_time'])) {// the login time displayed after the user logins successfully
+      echo "You logged in on: " . $_SESSION['login_time'];
+    }
+  
+  }
+ 
+  $mostClickedPostId = getMostClickedPost();  // Fetch the most clicked post ID
+  $mostClickedPost = null;
+  
+  if ($mostClickedPostId) {
+      // Fetch details of the most clicked post
+      $query = "SELECT posts.*, categories.category FROM posts 
+                JOIN categories ON posts.category_id = categories.id 
+                WHERE posts.id = :postId";
+      $mostClickedPost = query_row($query, ['postId' => $mostClickedPostId]);
+  }
+
+?>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <link href = "../public/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+  <style>
+  header{
+    background-color: #7F95D1; /* Change the background color */
+  }
+ 
+  .link-gray {
+    color: black;
+  }
+
+  .link-gray:hover {
+    color: black;
+    color: lightgray; /* Change color to black on hover */
+  }
+  /* Light Theme*/
+.light-theme {
+    background-color: white; 
+    color: black; 
+}
+
+/* Dark Theme */
+.dark-theme {
+    background-color: black;
+    color: white; 
+}
+
+.dark-theme a, .dark-theme button {
+    color: white; 
+}
+
+  
+</style>
+
+</head>
+<body>
+  
+
+<header class="p-3  border-bottom">
+    
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      
+      
+      <a href="<?=ROOT?>pages/home.php" class="nav-link px-2 link-dark" style="font-size: 24px;">InSightInk</a>
+
+
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="<?=ROOT?>pages/myblogs.php" class="nav-link px-2 link-gray">My Blog</a></li>
+          <li><a href="<?=ROOT?>pages/add.php" class="nav-link px-2 link-gray">Add Blog</a></li>
+          <?php if(!$_SESSION['USER']) {?>
+                      
+            <li><a href="<?=ROOT?>pages/login.php" class="nav-link px-2 link-gray">Login</a></li>
+
+            <?php } ?>
+        </ul>
+
+        <form class="row align-items-center mb-3 mb-lg-0 me-lg-3" role="search" action="<?=ROOT?>pages/search.php">
+            <div class="col-md-auto">
+                <input type="search" name="find" class="form-control" placeholder="Search..." aria-label="Search">
+            </div>
+            <div class="col-md-auto">
+                <button type="submit" class="btn btn-dark">Find</button>
+            </div>
+            <div class="col-md-auto">
+                <button id="theme-toggle" class="btn btn-outline-secondary">Toggle Dark Theme</button>
+             </div>
+        </form>
+
+        <?php if($_SESSION['USER']['username']){ ?>
+        <div class="dropdown text-end">
+        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                   
+                    <img src="<?=ROOT?>pages/<?=$user_image?>" alt="mdo" width="32" height="32"
+                         class="rounded-circle">
+                </a>
+          <ul class="dropdown-menu text-small">
+            <?php if($_SESSION['USER']['role'] == 'admin'){?>
+              <li><a class="dropdown-item" href="<?=ROOT?>pages/admin.php">Admin</a></li>
+             <?php } ?>
+            <li><a class="dropdown-item" href="<?=ROOT?>pages/settings.php">Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="<?=ROOT?>pages/logout.php">Sign out</a></li>
+          </ul>
+        </div>
+        <?php } ?>
+      </div>
+    </div>
+  </header>
+
+
+
+  <!--slider -->
+  <link rel="stylesheet" href="<?=ROOT?>public/assets/slider/ism/css/my-slider.css"/>
+  <script src="<?=ROOT?>public/assets/slider/ism/js/ism-2.2.min.js"></script>
+    
+
+<div class="ism-slider" data-transition_type="fade" data-play_type="loop" id="my-slider">
+  <ol>
+    <li>
+      <img src="<?=ROOT?>public/assets/slider/ism/image/slides/flower-729514_1280.jpg">
+      <div class="<?=ROOT?>public/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
+    </li>
+    <li>
+      <img src="<?=ROOT?>public/assets/slider/ism/image/slides/beautiful-701678_1280.jpg">
+      <div class="<?=ROOT?>public/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
+    </li>
+    <li>
+      <img src="<?=ROOT?>public/assets/slider/ism/image/slides/summer-192179_1280.jpg">
+      <div class="<?=ROOT?>public/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
+    </li>
+    <li>
+      <img src="<?=ROOT?>public/assets/slider/ism/image/slides/city-690332_1280.jpg">
+      <div class="<?=ROOT?>public/assets/slider/ism-caption ism-caption-0">My slide caption text</div>
+    </li>
+  </ol>
+</div>
+  <!-- end slider -->
+<div class="container mt-4">
+    <div class="featured-post-container">
+        <?php if ($mostClickedPost): ?>
+            <h2>Most Clicked Post</h2>
+            <div class="featured-post">
+                <h3><?= htmlspecialchars($mostClickedPost['title']) ?></h3>
+                <p><?= substr(htmlspecialchars($mostClickedPost['content']), 0, 200) ?>...</p>
+                <a href="<?=ROOT?>pages/post.php?slug=<?= htmlspecialchars($mostClickedPost['slug']) ?>" class="btn btn-primary">Read More</a>
+            </div>
+        <?php else: ?>
+            <p>No popular posts to display.</p>
+        <?php endif; ?>
+    </div>
+</div>
+<div onclick="showPopup()" style="cursor: pointer;"> <!--wrapping content with the click feature -->
+    <main class="p-2">
+        <h3 class="mx-4">Featured</h3>
+
+ <div class="row my-2" id="blogs-container">
+  
+        <?php 
+
+        $query = "select posts.*,categories.category from posts join categories on posts.category_id= categories.id order by posts.id desc";
+        $rows = query($query);
+
+
+          if($rows){
+            foreach($rows as $row){
+              include 'includes/post-card.php';
+            }
+          }else{
+            echo "No items found";
+          }
+          
+        ?>
+  </div>
+ </main>
+</div>
+   
+    <div id="popupMessage" style="display: none; position: fixed; bottom: 20px; right: 20px; background-color: black; color: white; padding: 20px; z-index: 1000;"> <!-- the popup message -->
+      You're now on the homepage.
+  </div>
+    </body>
+</html>
+
+    <script src="<?=ROOT?>public/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+
+function formatDateTime(date) {
+    let year = date.getFullYear();
+    let month = String(date.getMonth() + 1).padStart(2, '0');
+    let day = String(date.getDate()).padStart(2, '0');
+    let hours = String(date.getHours()).padStart(2, '0');
+    let minutes = String(date.getMinutes()).padStart(2, '0');
+    let seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+$(document).ready(function() {
+    // Function to fetch updates from the server
+    function checkForUpdates() {
+        $.ajax({
+            url: 'check_updates.php',
+            method: 'GET',
+            data: {
+                last_date: last_date, // Pass the last timestamp to the server
+          
+            },
+            success: function(response) {
+                // Process the updates received from the server
+                console.log('Updates:', response);
+
+                response.forEach(function(blog) {
+                  
+                    $.ajax({
+                       url: 'includes/post-card-async.php',
+                      method: 'POST',
+                      data: {
+                            id: blog.id
+                            
+                        },
+                        success: function(htmlResponse) {
+                            // Prepend the HTML content generated by PHP to the blog container
+                            $('#blogs-container').prepend(htmlResponse);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error fetching HTML content:', error);
+                        }
+                    });
+                });
+
+                // Update the last timestamp to the latest one received
+                last_date = formatDateTime(new Date());
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+
+    var last_date = formatDateTime(new Date()); // Initialize last timestamp
+    var id = ''; // Initialize blog ID
+    // Call the function to check for updates every 5 seconds (adjust as needed)
+    setInterval(checkForUpdates, 5000); // 5000 milliseconds = 5 seconds
+});
+
+ </script>
+ <script> 
+  function showPopup() {//the javasccript for showing messages
+    $("#popupMessage").show(); // Use jQuery to show the popup
+
+    setTimeout(function() {
+        $("#popupMessage").hide(); // Use jQuery to hide the popup after 3 seconds
+    }, 3000);
+  }
+ </script>
+ <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggleButton = document.getElementById('theme-toggle');
+    const bodyElement = document.body;
+
+    themeToggleButton.addEventListener('click', function() {
+        bodyElement.classList.toggle('dark-theme'); // Toggle dark theme class
+
+        function updateAriaLabel() {
+        if (bodyElement.classList.contains('dark-theme')) {
+            themeToggleButton.setAttribute('aria-label', 'Toggle light theme');
+            themeToggleButton.textContent = 'Toggle Light Theme';
+        } else {
+            themeToggleButton.setAttribute('aria-label', 'Toggle dark theme');
+            themeToggleButton.textContent = 'Toggle Dark Theme';
+        }
+        }
+
+        // Optionally, save the user's theme preference
+        if (bodyElement.classList.contains('dark-theme')) {
+            localStorage.setItem('theme', 'dark');
+        } else {
+            localStorage.setItem('theme', 'light');
+        }
+    });
+
+    // Check for saved theme preference, if any, and apply it
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        bodyElement.classList.add(savedTheme);
+    }
+});
+</script>
+
+
+  </body>
+  
+
+</html>
+
