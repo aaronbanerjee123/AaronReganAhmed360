@@ -33,7 +33,7 @@
 
             <!-- Read more button -->
             <?php if(strlen($row['content']) > 50) { ?>
-                <a href="#" class="read-more" style="width: 60px; display: inline-block; background-color: #007bff; color: #fff; border: none; padding: 8px 20px; text-align: center; text-decoration: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s ease;">Read more</a>
+                <a href="#" class="read-more" style="width: 75px; display: inline-block; background-color: #007bff; color: #fff; border: none; padding: 8px 20px; text-align: center; text-decoration: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s ease;">Read more</a>
             <?php } ?>
         </div>
     </div>
